@@ -10,6 +10,7 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
+        this.initMaterials();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -18,10 +19,11 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
+        this.enableTextures(true);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.prism = new MyPrism(this,6);
+        this.prism = new MyCylinder(this,6);
 
         //Objects connected to MyInterface
     }
@@ -39,6 +41,17 @@ class MyScene extends CGFscene {
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
+    }
+    initMaterials() {
+        this.textureSide = new CGFappearance(this);
+        this.textureSide.setAmbient(0.1, 0.1, 0.1, 1);
+        this.textureSide.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.textureSide.setSpecular(0.1, 0.1, 0.1, 1);
+        this.textureSide.setShininess(10.0);
+       /* this.textureSide.loadTexture('images/tangram.png');
+        this.textureSide.setTextureWrap('REPEAT', 'REPEAT');*/
+        this.textureSide.setTexture(new CGFtexture(this, 'images/tangram.png'));
+
     }
     display() {
         // ---- BEGIN Background, camera and axis setup
@@ -59,7 +72,11 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.prism.enableNormalViz();
+
+        this.textureSide.apply();
         this.prism.display();
+       // console.log(this.textureSide);
+        
 
 
         // ---- END Primitive drawing section
