@@ -38,6 +38,7 @@ class MyCylinder extends CGFobject {
         
         this.vertices.push(1,0,0);
         this.vertices.push(1,1,0);
+        
         this.normals.push(1,0,0);
         this.normals.push(1,0,0);
 

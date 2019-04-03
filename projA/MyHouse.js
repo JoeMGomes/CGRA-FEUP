@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
 * MyHouse
 * @constructor
@@ -87,3 +88,5 @@ class MyHouse extends CGFobject {
     }
     
 }
+=======
+>>>>>>> 3fb0fb47151aee0c881affbe6f686b7d5c2f97d3
