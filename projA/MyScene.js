@@ -23,7 +23,12 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.prism = new MyCylinder(this,6);
+        this.prism = new MyPrism(this,6);
+        this.piramid = new MyPyramid(this,6,1);
+        this.cyl = new MyCylinder(this,6);
+
+
+
 
         //Objects connected to MyInterface
     }
@@ -74,7 +79,9 @@ class MyScene extends CGFscene {
         this.prism.enableNormalViz();
 
         this.textureSide.apply();
-        this.prism.display();
+         this.prism.display();
+       // this.cyl.display();
+       //this.piramid.display();
        // console.log(this.textureSide);
         
 
