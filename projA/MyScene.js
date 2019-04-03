@@ -26,14 +26,11 @@ class MyScene extends CGFscene {
         //this.prism = new MyPrism(this,6);
         //this.piramid = new MyPyramid(this,6,1);
         this.cyl = new MyCylinder(this,6);
-<<<<<<< HEAD
         //this.house = new MyHouse(this);
-=======
         this.tree = new MyTree(this,2,0.5,2,1,1,1);
 
 
 
->>>>>>> 3fb0fb47151aee0c881affbe6f686b7d5c2f97d3
 
         //Objects connected to MyInterface
     }
@@ -84,14 +81,9 @@ class MyScene extends CGFscene {
        // this.prism.enableNormalViz();
 
         this.textureSide.apply();
-<<<<<<< HEAD
          //this.prism.display();
        //  this.house.display();
         this.cyl.display();
-=======
-        //this.prism.display();
-       // this.cyl.display();
->>>>>>> 3fb0fb47151aee0c881affbe6f686b7d5c2f97d3
        //this.piramid.display();
 
        this.tree.display();
