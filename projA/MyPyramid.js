@@ -1,22 +1,21 @@
 /**
-* MyPrism
+* MyPyramid
 * @constructor
 */
-class MyPrism extends CGFobject {
-    constructor(scene, slices) {
+class MyPyramid extends CGFobject {
+    constructor(scene, slices, stacks) {
         super(scene);
         this.slices = slices;
+        this.stacks = stacks;
         this.initBuffers();
     }
     initBuffers() {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
-        this.texCoords = [];
 
         var ang = 0;
         var alphaAng = 2*Math.PI/this.slices;
-        var step = 1/this.slices;
 
         for(var i = 0; i < this.slices; i++){
             // All vertices have to be declared for a given face
@@ -28,16 +27,14 @@ class MyPrism extends CGFobject {
             var ca=Math.cos(ang);
             var caa=Math.cos(ang+alphaAng);
 
-            //this.vertices.push(0,1,0);
+            this.vertices.push(0,1,0);
             this.vertices.push(ca, 0, -sa);
-            this.vertices.push(ca, 1, -sa);
             this.vertices.push(caa, 0, -saa);
-            this.vertices.push(caa, 1, -saa);
-            
+
             // triangle normal computed by cross product of two edges
             var normal= [
                 saa-sa,
-                0,
+                ca*saa-sa*caa,
                 caa-ca
             ];
 
@@ -55,15 +52,8 @@ class MyPrism extends CGFobject {
             this.normals.push(...normal);
             this.normals.push(...normal);
             this.normals.push(...normal);
-            this.normals.push(...normal);
 
-            this.indices.push(i*4, i*4+2 , i*4+1 );
-            this.indices.push(i*4+3, i*4+1 , i*4+2 ); 
-
-            this.texCoords.push(i*step,1);
-            this.texCoords.push(i*step,0);
-            this.texCoords.push((i+1)*step,1);
-            this.texCoords.push((i+1)*step,0);
+            this.indices.push(3*i, (3*i+1) , (3*i+2) );
 
             ang+=alphaAng;
         }
@@ -71,8 +61,14 @@ class MyPrism extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+    
+    updateBuffers(complexity){
+        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
 
-   
+        // reinitialize buffers
+        this.initBuffers();
+        this.initNormalVizBuffers();
+    }
 }
 
 

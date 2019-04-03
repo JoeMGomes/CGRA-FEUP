@@ -43,11 +43,13 @@ class MyCylinder extends CGFobject {
         
         this.vertices.push(1,0,0);
         this.vertices.push(1,1,0);
+        this.normals.push(1,0,0);
+        this.normals.push(1,0,0);
 
         this.indices.push(this.slices*2-2,this.slices*2+1,this.slices*2-1);
-        //this.indices.push(this.slices*2,this.slices*2+1,this.slices*2-2);
-        //this.texCoords.push(1,0);
-        //this.texCoords.push(1,1);
+        this.indices.push(this.slices*2,this.slices*2+1,this.slices*2-2);
+        this.texCoords.push(1,1);
+        this.texCoords.push(1,0);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
