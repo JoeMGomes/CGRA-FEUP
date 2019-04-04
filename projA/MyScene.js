@@ -49,15 +49,17 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+    
     initMaterials() {
+        this.texturete = new CGFtexture (this,'images/tangram.png' )
         this.textureSide = new CGFappearance(this);
         this.textureSide.setAmbient(0.1, 0.1, 0.1, 1);
         this.textureSide.setDiffuse(0.9, 0.9, 0.9, 1);
         this.textureSide.setSpecular(0.1, 0.1, 0.1, 1);
         this.textureSide.setShininess(10.0);
-       /* this.textureSide.loadTexture('images/tangram.png');
-        this.textureSide.setTextureWrap('REPEAT', 'REPEAT');*/
-        this.textureSide.setTexture(new CGFtexture(this, 'images/tangram.png'));
+        this.textureSide.loadTexture('images/tangram.png');
+        this.textureSide.setTextureWrap('REPEAT', 'REPEAT');
+        this.textureSide.setTexture(this.texturete);
 
     }
     display() {
@@ -83,7 +85,7 @@ class MyScene extends CGFscene {
         this.textureSide.apply();
          //this.prism.display();
        //  this.house.display();
-        this.cyl.display();
+        //this.cyl.display();
        //this.piramid.display();
 
        this.tree.display();
