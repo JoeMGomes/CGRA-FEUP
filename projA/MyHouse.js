@@ -39,7 +39,7 @@ class MyHouse extends CGFobject {
 	}
 	display() {
 		//cubo
-		this.wallTexture.apply();
+		//this.wallTexture.apply();
 		this.scene.pushMatrix();
 		this.scene.translate(0, 0.5, 0);
 		this.scene.scale(2, 1, 1.3);
@@ -47,7 +47,7 @@ class MyHouse extends CGFobject {
 		this.scene.popMatrix();
 
 		//piramide
-		this.roofTexture.apply();
+	//	this.roofTexture.apply();
 		this.scene.pushMatrix();
 		this.scene.translate(0, 1, 0);
 		this.scene.scale(2.2, 1, 1.5);
@@ -57,7 +57,7 @@ class MyHouse extends CGFobject {
 
 		//colunas
 		//1
-		this.columnTexture.apply();
+		//this.columnTexture.apply();
 		this.scene.pushMatrix();
 		this.scene.translate(1.4, 0, 0.9);
 		this.scene.scale(0.15, 1, 0.15);
