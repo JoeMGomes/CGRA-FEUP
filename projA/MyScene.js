@@ -75,8 +75,16 @@ class MyScene extends CGFscene {
 		// Draw axis
 		if (this.displayAxis) this.axis.display();
 
+<<<<<<< HEAD
 		//Apply default appearance
 		this.setDefaultAppearance();
+=======
+        this.textureSide.apply();
+         //this.prism.display();
+       //  this.house.display();
+        //this.cyl.display();
+       //this.piramid.display();
+>>>>>>> db30e99029541429e3792b1c5f4426a1f0912ba7
 
 		// ---- BEGIN Primitive drawing section
 		// this.prism.enableNormalViz();
