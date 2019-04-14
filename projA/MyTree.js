@@ -15,7 +15,7 @@ class MyTree extends CGFobject {
 		this.treeTopTexture = treeTopTexture;
 		this.degreeToRad = Math.PI / 180;
 		this.initBuffers(scene);
-		//this.initMaterials(scene);
+		
 	}
 	initBuffers(scene) {
 		scene.cone = new MyCone(scene, 10, 1);

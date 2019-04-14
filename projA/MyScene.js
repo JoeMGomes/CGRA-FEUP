@@ -59,7 +59,7 @@ class MyScene extends CGFscene {
 		this.textureSide.setShininess(10.0);
 		/* this.textureSide.loadTexture('images/tangram.png');
         this.textureSide.setTextureWrap('REPEAT', 'REPEAT');*/
-		this.textureSide.setTexture(new CGFtexture(this, 'images/roof.jpg'));
+		this.textureSide.setTexture(new CGFtexture(this, 'images/tree.png'));
 	}
 	display() {
 		// ---- BEGIN Background, camera and axis setup
