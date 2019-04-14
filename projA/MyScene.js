@@ -27,7 +27,7 @@ class MyScene extends CGFscene {
 		this.piramid = new MyPyramid(this,6,1);
 		this.cyl = new MyCylinder(this, 6);
 		this.house = new MyHouse(this);
-		this.tree = new MyTree(this, 2, 0.5, 2, 1, 1, 1);
+		this.tree = new MyTree(this, 2, 0.5, 2, 1, this.textureTrunk, this.textureTree);
 
 		this.displayAxis = false;
 		this.displayHouse = false;
@@ -52,14 +52,19 @@ class MyScene extends CGFscene {
 		this.setShininess(10.0);
 	}
 	initMaterials() {
-		this.textureSide = new CGFappearance(this);
-		this.textureSide.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureSide.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureSide.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureSide.setShininess(10.0);
-		/* this.textureSide.loadTexture('images/tangram.png');
-        this.textureSide.setTextureWrap('REPEAT', 'REPEAT');*/
-		this.textureSide.setTexture(new CGFtexture(this, 'images/tree.png'));
+		this.textureTree = new CGFappearance(this);
+		this.textureTree.setAmbient(0.1, 0.1, 0.1, 1);
+		this.textureTree.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.textureTree.setSpecular(0.1, 0.1, 0.1, 1);
+		this.textureTree.setShininess(10.0);
+		this.textureTree.setTexture(new CGFtexture(this, 'images/tree.png'));
+
+		this.textureTrunk = new CGFappearance(this);
+		this.textureTrunk.setAmbient(0.1, 0.1, 0.1, 1);
+		this.textureTrunk.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.textureTrunk.setSpecular(0.1, 0.1, 0.1, 1);
+		this.textureTrunk.setShininess(10.0);
+		this.textureTrunk.setTexture(new CGFtexture(this, 'images/bark2.jpg'));
 	}
 	display() {
 		// ---- BEGIN Background, camera and axis setup
@@ -81,7 +86,7 @@ class MyScene extends CGFscene {
 		// ---- BEGIN Primitive drawing section
 		// this.prism.enableNormalViz();
 
-		this.textureSide.apply();
+		//this.textureTree.apply();
 		//this.prism.display();
 		if (this.displayHouse) this.house.display();
 		//this.cyl.display();

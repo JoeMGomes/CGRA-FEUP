@@ -19,10 +19,11 @@ class MyTree extends CGFobject {
 	}
 	initBuffers(scene) {
 		scene.cone = new MyCone(scene, 10, 1);
-		scene.cylinder = new MyCylinder(scene, 5);
+		scene.cylinder = new MyCylinder(scene, 10);
 	}
 
 	display() {
+		this.trunkTexture.apply();
 		this.scene.pushMatrix();
 		//this.scene.translate(3+Math.sqrt(2), -1,0)
 		this.scene.scale(this.trunkRadius, this.trunkHeight, this.trunkRadius);
@@ -30,6 +31,7 @@ class MyTree extends CGFobject {
 		this.scene.cylinder.display();
 		this.scene.popMatrix();
 
+		this.treeTopTexture.apply();
 		this.scene.pushMatrix();
 		this.scene.translate(0, this.trunkHeight, 0);
 		this.scene.scale(this.treeTopRadius, this.treeTopHeight, this.treeTopRadius);
