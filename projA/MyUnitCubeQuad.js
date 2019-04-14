@@ -24,21 +24,21 @@ class MyUnitCubeQuad extends CGFobject {
         this.textureSide.setDiffuse(0.9, 0.9, 0.9, 1);
         this.textureSide.setSpecular(0.1, 0.1, 0.1, 1);
         this.textureSide.setShininess(10.0);
-        this.textureSide.setTexture(new CGFtexture(scene, 'images/mineSide.png'));
+        //this.textureSide.setTexture(new CGFtexture(scene, 'images/mineSide.png'));
 
         this.textureBottom = new CGFappearance(scene);
         this.textureBottom.setAmbient(0.1, 0.1, 0.1, 1);
         this.textureBottom.setDiffuse(0.9, 0.9, 0.9, 1);
         this.textureBottom.setSpecular(0.1, 0.1, 0.1, 1);
         this.textureBottom.setShininess(10.0);
-        this.textureBottom.setTexture(new CGFtexture(scene, 'images/mineBottom.png'));
+        //this.textureBottom.setTexture(new CGFtexture(scene, 'images/mineBottom.png'));
 
         this.textureTop = new CGFappearance(scene);
         this.textureTop.setAmbient(0.1, 0.1, 0.1, 1);
         this.textureTop.setDiffuse(0.9, 0.9, 0.9, 1);
         this.textureTop.setSpecular(0.1, 0.1, 0.1, 1);
         this.textureTop.setShininess(10.0);
-        this.textureTop.setTexture(new CGFtexture(scene, 'images/mineTop.png'));
+       // this.textureTop.setTexture(new CGFtexture(scene, 'images/mineTop.png'));
     }
     display(){
         this.textureSide.apply();

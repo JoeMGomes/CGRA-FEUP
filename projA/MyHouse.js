@@ -21,21 +21,21 @@ class MyHouse extends CGFobject {
 		this.roofTexture.setDiffuse(0.9, 0.9, 0.9, 1);
 		this.roofTexture.setSpecular(0.1, 0.1, 0.1, 1);
 		this.roofTexture.setShininess(10.0);
-		this.roofTexture.setTexture(new CGFtexture(scene, 'images/mineSide.png'));
+		this.roofTexture.setTexture(new CGFtexture(scene, 'images/roof.jpg'));
 
 		this.columnTexture = new CGFappearance(scene);
 		this.columnTexture.setAmbient(0.1, 0.1, 0.1, 1);
 		this.columnTexture.setDiffuse(0.9, 0.9, 0.9, 1);
 		this.columnTexture.setSpecular(0.1, 0.1, 0.1, 1);
 		this.columnTexture.setShininess(10.0);
-		this.columnTexture.setTexture(new CGFtexture(scene, 'images/mineBottom.png'));
+		//this.columnTexture.setTexture(new CGFtexture(scene, 'images/mineBottom.png'));
 
 		this.wallTexture = new CGFappearance(scene);
 		this.wallTexture.setAmbient(0.1, 0.1, 0.1, 1);
 		this.wallTexture.setDiffuse(0.9, 0.9, 0.9, 1);
 		this.wallTexture.setSpecular(0.1, 0.1, 0.1, 1);
 		this.wallTexture.setShininess(10.0);
-		this.wallTexture.setTexture(new CGFtexture(scene, 'images/mineTop.png'));
+		//this.wallTexture.setTexture(new CGFtexture(scene, 'images/mineTop.png'));
 	}
 	display() {
 		//cubo
@@ -47,7 +47,7 @@ class MyHouse extends CGFobject {
 		this.scene.popMatrix();
 
 		//piramide
-	//	this.roofTexture.apply();
+		this.roofTexture.apply();
 		this.scene.pushMatrix();
 		this.scene.translate(0, 1, 0);
 		this.scene.scale(2.2, 1, 1.5);
