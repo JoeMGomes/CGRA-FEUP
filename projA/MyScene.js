@@ -33,6 +33,9 @@ class MyScene extends CGFscene {
 		this.treeRow = new MyTreeRowPatch(this);
 		this.hill = new MyVoxelHill(this, 5);
 		this.sky = new MyCubeMap(this,2);
+		this.floor = new MyQuad(this);
+
+		this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
 
 		//Objects connected to MyInterface
 		this.displayAxis = false;
@@ -42,15 +45,16 @@ class MyScene extends CGFscene {
 		this.displayTreeRow = false;
 		this.displayHill = false;
 		this.displaySky = true;
+		
 	}
 	initLights() {
-		this.lights[0].setPosition(0, 0, 0, 1);
+		this.lights[0].setPosition(50, 100, 50, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
 		this.lights[0].update();
 	}
 	initCameras() {
-		this.camera = new CGFcamera(0.4, 0.1, 1000, vec3.fromValues(4, 0, 0), vec3.fromValues(0, 0, 0));
+		this.camera = new CGFcamera(0.4, 0.1, 1000, vec3.fromValues(250, 90, 250), vec3.fromValues(-100, 0, -100));
 	}
 	setDefaultAppearance() {
 		this.setAmbient(0.4, 0.6, 1, 1.0);
@@ -59,13 +63,24 @@ class MyScene extends CGFscene {
 		this.setShininess(10.0);
 	}
 	initMaterials() {
-			this.textureBack = new CGFappearance(this);
-			this.textureBack.setAmbient(0.1, 0.1, 0.1, 1);
-			this.textureBack.setDiffuse(0.9, 0.9, 0.9, 1);
-			this.textureBack.setSpecular(0.1, 0.1, 0.1, 1);
-			this.textureBack.setShininess(10.0);
-			this.textureBack.setTexture(new CGFtexture(this, 'images/skyboxsun.png'));
+		this.textureBack = new CGFappearance(this);
+		this.textureBack.setAmbient(0.1, 0.1, 0.1, 1);
+		this.textureBack.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.textureBack.setSpecular(0.1, 0.1, 0.1, 1);
+		this.textureBack.setShininess(10.0);
+		this.textureBack.setTexture(new CGFtexture(this, 'images/skyboxsun.png'));
+
+		this.textureGrass = new CGFappearance(this);
+		this.textureGrass.setAmbient(0.1, 0.1, 0.1, 1);
+		this.textureGrass.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.textureGrass.setSpecular(0.1, 0.1, 0.1, 1);
+		this.textureGrass.setShininess(10.0);
+		this.textureGrass.setTexture(new CGFtexture(this, 'images/grass2.jpg'));
+		this.textureGrass.setTextureWrap('REPEAT', 'REPEAT');
 	}
+	updateTexCoords() {
+        this.floor.updateTexCoords(this.texCoords);
+    }
 	display() {
 		// ---- BEGIN Background, camera and axis setup
 		// Clear image and depth buffer everytime we update the scene
@@ -93,11 +108,29 @@ class MyScene extends CGFscene {
 		if (this.displayPyr) this.piramid.display();
 		if (this.displayTreeGroup) this.treeGroup.display();
 		if (this.displayTreeRow) this.treeRow.display();
-		if (this.displayHill) this.hill.display();
+		if (this.displayHill){
+			this.pushMatrix();
+			this.translate (10,4.5,0);
+			this.hill.display();
+			this.popMatrix();
+		}
 		if (this.displaySky){ 
 			this.textureBack.apply();
+			this.pushMatrix();
+			this.scale(200,200,200);
 			this.sky.display();
+			this.popMatrix();
 		}
+
+		this.texCoords = [0,250,
+			250,250,
+			0,0,
+			250,0]
+		this.updateTexCoords();
+		this.textureGrass.apply();
+		this.rotate (-90*this.degreeToRad, 1,0,0);
+		this.scale (500,500,1,1);
+		this.floor.display();
 
 		// ---- END Primitive drawing section
 	}

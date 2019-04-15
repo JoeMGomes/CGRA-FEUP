@@ -24,6 +24,7 @@ class MyVoxelHill extends CGFobject {
 	display() {
         this.roofTexture.apply();
         this.side_numb = 1;
+        this.scene.pushMatrix();
         for (var i = 1; i <= this.levels; i++){
             
             this.scene.pushMatrix();
@@ -52,5 +53,6 @@ class MyVoxelHill extends CGFobject {
             this.scene.translate(-1,-1,-1);
             this.side_numb += 2;
         }
+        this.scene.popMatrix();
     }
 }
