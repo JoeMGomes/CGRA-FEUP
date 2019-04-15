@@ -32,10 +32,10 @@ class MyScene extends CGFscene {
 		this.treeGroup = new MyTreeGroupPatch(this);
 		this.treeRow = new MyTreeRowPatch(this);
 		this.hill = new MyVoxelHill(this, 5);
-		this.sky = new MyCubeMap(this,2);
+		this.sky = new MyCubeMap(this, 2);
 		this.floor = new MyQuad(this);
 
-		this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
+		this.texCoords = [ 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0 ];
 
 		//Objects connected to MyInterface
 		this.displayAxis = false;
@@ -46,9 +46,8 @@ class MyScene extends CGFscene {
 		this.displayHill = false;
 		this.displaySky = true;
 
-		this.ambientIDs = {'Day': 0, 'Night': 1};
+		this.ambientIDs = { Day: 0, Night: 1 };
 		this.selectAmbient = 0;
-		
 	}
 	initLights() {
 		this.lights[0].setPosition(50, 100, 50, 1);
@@ -57,12 +56,12 @@ class MyScene extends CGFscene {
 		this.lights[0].update();
 
 		this.lights[1].setPosition(50, 100, 50, 1);
-		this.lights[1].setDiffuse(.03, 1.0, .03, 0.1);
+		this.lights[1].setDiffuse(1, 1.0, 1, 0.1);
 		this.lights[1].disable();
 		this.lights[1].update();
 	}
 	initCameras() {
-		this.camera = new CGFcamera(0.4, 0.1, 1000, vec3.fromValues(250, 90, 250), vec3.fromValues(-100, 0, -100));
+		this.camera = new CGFcamera(Math.PI/2, 0.1, 1500, vec3.fromValues(0, 0, 0), vec3.fromValues(1, 1, 1));
 	}
 	setDefaultAppearance() {
 		this.setAmbient(0.4, 0.6, 1, 1.0);
@@ -71,12 +70,19 @@ class MyScene extends CGFscene {
 		this.setShininess(10.0);
 	}
 	initMaterials() {
-		this.textureBack = new CGFappearance(this);
-		this.textureBack.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureBack.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureBack.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureBack.setShininess(10.0);
-		this.textureBack.setTexture(new CGFtexture(this, 'images/skyboxsun.png'));
+		this.textureDay = new CGFappearance(this);
+		this.textureDay.setAmbient(0.1, 0.1, 0.1, 1);
+		this.textureDay.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.textureDay.setSpecular(0.1, 0.1, 0.1, 1);
+		this.textureDay.setShininess(10.0);
+		this.textureDay.setTexture(new CGFtexture(this, 'images/skyboxsun.png'));
+
+		this.textureNight = new CGFappearance(this);
+		this.textureNight.setAmbient(0.1, 0.1, 0.1, 1);
+		this.textureNight.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.textureNight.setSpecular(0.1, 0.1, 0.1, 1);
+		this.textureNight.setShininess(10.0);
+		this.textureNight.setTexture(new CGFtexture(this, 'images/skyboxnight.png'));
 
 		this.textureGrass = new CGFappearance(this);
 		this.textureGrass.setAmbient(0.1, 0.1, 0.1, 1);
@@ -87,8 +93,8 @@ class MyScene extends CGFscene {
 		this.textureGrass.setTextureWrap('REPEAT', 'REPEAT');
 	}
 	updateTexCoords() {
-        this.floor.updateTexCoords(this.texCoords);
-    }
+		this.floor.updateTexCoords(this.texCoords);
+	}
 	display() {
 		// ---- BEGIN Background, camera and axis setup
 		// Clear image and depth buffer everytime we update the scene
@@ -109,12 +115,12 @@ class MyScene extends CGFscene {
 		// ---- BEGIN Primitive drawing section
 		// this.prism.enableNormalViz();
 
-		if (this.selectAmbient == 1){
+		if (this.selectAmbient == 1) {
 			this.lights[0].disable();
 			this.lights[0].update();
 			this.lights[1].enable();
 			this.lights[1].update();
-		}else{
+		} else {
 			this.lights[0].enable();
 			this.lights[0].update();
 			this.lights[1].disable();
@@ -123,32 +129,30 @@ class MyScene extends CGFscene {
 		//this.textureTree.apply();
 		//this.prism.display();
 		if (this.displayHouse) this.house.display();
-		//this.cyl.display();
+
 		if (this.displayPyr) this.piramid.display();
 		if (this.displayTreeGroup) this.treeGroup.display();
 		if (this.displayTreeRow) this.treeRow.display();
-		if (this.displayHill){
+		if (this.displayHill) {
 			this.pushMatrix();
-			this.translate (10,4.5,0);
+			this.translate(10, 4.5, 0);
 			this.hill.display();
 			this.popMatrix();
 		}
-		if (this.displaySky){ 
-			this.textureBack.apply();
+		if (this.displaySky) {
+			if (this.selectAmbient == 1) this.textureNight.apply();
+			else this.textureDay.apply();
 			this.pushMatrix();
-			this.scale(200,200,200);
+			this.scale(200, 200, 200);
 			this.sky.display();
 			this.popMatrix();
 		}
 
-		this.texCoords = [0,250,
-			250,250,
-			0,0,
-			250,0]
+		this.texCoords = [ 0, 250, 250, 250, 0, 0, 250, 0 ];
 		this.updateTexCoords();
 		this.textureGrass.apply();
-		this.rotate (-90*this.degreeToRad, 1,0,0);
-		this.scale (500,500,1,1);
+		this.rotate(-90 * this.degreeToRad, 1, 0, 0);
+		this.scale(500, 500, 1, 1);
 		this.floor.display();
 
 		// ---- END Primitive drawing section
