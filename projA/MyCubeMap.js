@@ -1,127 +1,151 @@
 /**
-* MyCubeMap
-* @constructor
-* @param scene - Reference to MyScene object
-*/
-
-let scale = 500;
+ * MyUnitCube
+ * @constructor
+ * @param scene - Reference to MyScene object
+ */
 class MyCubeMap extends CGFobject {
-	constructor(scene) {
+	constructor(scene, scale) {
 		super(scene);
-		this.initBuffers(scene);
-		this.initTextures(scene);
+        this.initBuffers();
+        this.scale = scale;
 	}
-	initBuffers(scene) {
-		scene.quadSide = new MyQuad(scene);
-		scene.quadTop = new MyQuad(scene);
-		scene.quadBottom = new MyQuad(scene);
-	}
-	initTextures(scene) {
-		this.textureBack = new CGFappearance(scene);
-		this.textureBack.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureBack.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureBack.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureBack.setShininess(10.0);
-		this.textureBack.setTexture(new CGFtexture(scene, 'images/skyrender0002.bmp'));
+	initBuffers() {
+		this.vertices1 = [
+			//Face traseira
+			-0.5, -0.5, -0.5,	//0
+			-0.5, 0.5, -0.5,	//1
+			0.5, -0.5, -0.5,	//2
+			0.5, 0.5, -0.5,		//3
+			
+			//Face frontal
+			-0.5, -0.5, 0.5,	//4
+			-0.5, 0.5, 0.5,		//5
+			0.5, -0.5, 0.5,		//6
+			0.5, 0.5, 0.5,		//7
 
-		this.textureFront = new CGFappearance(scene);
-		this.textureFront.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureFront.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureFront.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureFront.setShininess(10.0);
-        this.textureFront.setTexture(new CGFtexture(scene, 'images/skyrender0005.bmp'));
+			//Face lateral direita
+			0.5, -0.5, -0.5,	//8
+			0.5, 0.5, -0.5,		//9
+			0.5, -0.5, 0.5,		//10
+			0.5, 0.5, 0.5,		//11
+			
+			//Face lateral esquerda
+			-0.5, -0.5, -0.5,	//12
+			-0.5, 0.5, -0.5,	//13
+			-0.5, -0.5, 0.5,	//14
+			-0.5, 0.5, 0.5,		//15
+
+			//Face inferior
+			-0.5, -0.5, -0.5,	//16
+			0.5, -0.5, -0.5,	//17
+			0.5, -0.5, 0.5,		//18
+			-0.5, -0.5, 0.5,	//19
+			
+			//Face superior
+			-0.5, 0.5, -0.5,	//20
+			0.5, 0.5, -0.5,		//21
+			-0.5, 0.5, 0.5,		//22
+			0.5, 0.5, 0.5		//23
+			
+        ];
+
+        this.vertices = this.vertices1.map(x => x * 3);
+        console.log(this.vertices);
+
+
+		//Counter-clockwise reference of vertices
+		this.indices = [
+			0, 2, 1,
+			1, 2, 3,
+
+			4, 5, 6, 
+			6, 5, 7,
+
+			8, 10, 9,
+			9, 10, 11,
+
+			14, 12, 13,
+			14, 13, 15,
+
+			16, 19, 17,
+			17, 19, 18,
+			
+			22, 20, 21,
+			21, 23, 22
+		];
+
+		this.normals= [
+			0,0,1,
+			0,0,1,
+			0,0,1,
+			0,0,1,
+
+			0,0,-1,
+			0,0,-1,
+			0,0,-1,
+			0,0,-1,
+
+			-1,0,0,
+			-1,0,0,
+			-1,0,0,
+			-1,0,0,
+
+			1,0,0,
+			1,0,0,
+			1,0,0,
+			1,0,0,
+
+			0,1,0,
+			0,1,0,
+			0,1,0,
+			0,1,0,
+
+			0,-1,0,
+			0,-1,0,
+			0,-1,0,
+			0,-1,0
+
+        ];
         
-        this.textureLeft = new CGFappearance(scene);
-		this.textureLeft.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureLeft.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureLeft.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureLeft.setShininess(10.0);
-        this.textureLeft.setTexture(new CGFtexture(scene, 'images/skyrender0004.bmp'));
-        
-        this.textureRight = new CGFappearance(scene);
-		this.textureRight.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureRight.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureRight.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureRight.setShininess(10.0);
-		this.textureRight.setTexture(new CGFtexture(scene, 'images/skyrender0001.bmp'));
+        this.texCoords = [
+             .25,0.5,
+             .25,0.25,
+             .5,0.5,
+             .5,0.25,
 
-		this.textureBottom = new CGFappearance(scene);
-		this.textureBottom.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureBottom.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureBottom.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureBottom.setShininess(10.0);
-		this.textureBottom.setTexture(new CGFtexture(scene, 'images/skyrender0006.bmp'));
+             1,.5,
+             1,.25,
+             .75,0.5,
+             .75,0.25,
 
-		this.textureTop = new CGFappearance(scene);
-		this.textureTop.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureTop.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureTop.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureTop.setShininess(10.0);
-		this.textureTop.setTexture(new CGFtexture(scene, 'images/skyrender0003.bmp'));
+             .5,0.5,
+             .5,0.25,
+             .75,0.5,
+             .75,0.25,
+            
+             .0,0.5,
+             .25,0.25,
+             .25,0.5,
+             .0,0.25,
+
+             .25,0.5,
+             .5,0.5,
+            .25,.75,
+            .5,.75,
+
+             .25,0.25,
+             .5,0.25,
+            0.25,0,
+            0.5,0
+        ];
+
+		this.primitiveType = this.scene.gl.TRIANGLES;
+		this.initGLBuffers();
 	}
-	display() {
-		this.textureBack.apply();
-		//this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-		//BACK face
-        this.scene.pushMatrix();
-		this.scene.scale(scale, scale, scale);
-        this.scene.rotate(Math.PI, 0, 1, 0);
-		this.scene.translate(0, 0, -0.5);
-		this.scene.quadSide.display();
-		this.scene.popMatrix();
 
-        //FRONT face
-        this.textureFront.apply();
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI, 0, 1, 0);
-		this.scene.scale(scale, scale, scale);
-		this.scene.translate(0, 0, 0.5);
-		this.scene.rotate(Math.PI, 0, 1, 0);
-		this.scene.quadSide.display();
-		this.scene.popMatrix();
-
-        //Left face
-        this.textureLeft.apply();
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI, 0, 1, 0);
-		this.scene.scale(scale, scale, scale);
-		this.scene.translate(0.5, 0, 0);
-		this.scene.rotate(-Math.PI / 2, 0, 1, 0);
-		this.scene.quadSide.display();
-		this.scene.popMatrix();
-
-        //Right face
-        this.textureRight.apply();
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI, 0, 1, 0);
-		this.scene.scale(scale, scale, scale);
-		this.scene.translate(-0.5, 0, 0);
-		this.scene.rotate(Math.PI / 2, 0, 1, 0);
-		this.scene.quadSide.display();
-		this.scene.popMatrix();
-
-		//	this.textureTop.apply();
-		//	this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        //Top face
-        this.textureTop.apply();
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI, 1, 0, 0);
-		this.scene.scale(scale, scale, scale);
-		this.scene.translate(0, -0.5, 0);
-		this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-		this.scene.quadSide.display();
-		this.scene.popMatrix();
-
-		//	this.textureBottom.apply();
-		//this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        //Bottom face
-        this.textureBottom.apply();
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI, 1,0, 0);
-		this.scene.scale(scale, scale, scale);
-		this.scene.translate(0, 0.5, 0);
-		this.scene.rotate(Math.PI / 2, 1, 0, 0);
-		this.scene.quadSide.display();
-		this.scene.popMatrix();
+	updateBuffers(complexity){
+		this.initBuffers();
+        this.initNormalVizBuffers();
 	}
 }
+

@@ -32,7 +32,7 @@ class MyScene extends CGFscene {
 		this.treeGroup = new MyTreeGroupPatch(this);
 		this.treeRow = new MyTreeRowPatch(this);
 		this.hill = new MyVoxelHill(this, 5);
-		this.sky = new MyCubeMap(this);
+		this.sky = new MyCubeMap(this,2);
 
 		//Objects connected to MyInterface
 		this.displayAxis = false;
@@ -58,7 +58,14 @@ class MyScene extends CGFscene {
 		this.setSpecular(0.2, 0.4, 0.8, 1.0);
 		this.setShininess(10.0);
 	}
-	initMaterials() {}
+	initMaterials() {
+			this.textureBack = new CGFappearance(this);
+			this.textureBack.setAmbient(0.1, 0.1, 0.1, 1);
+			this.textureBack.setDiffuse(0.9, 0.9, 0.9, 1);
+			this.textureBack.setSpecular(0.1, 0.1, 0.1, 1);
+			this.textureBack.setShininess(10.0);
+			this.textureBack.setTexture(new CGFtexture(this, 'images/skyboxsun.png'));
+	}
 	display() {
 		// ---- BEGIN Background, camera and axis setup
 		// Clear image and depth buffer everytime we update the scene
@@ -87,7 +94,10 @@ class MyScene extends CGFscene {
 		if (this.displayTreeGroup) this.treeGroup.display();
 		if (this.displayTreeRow) this.treeRow.display();
 		if (this.displayHill) this.hill.display();
-		if (this.displaySky) this.sky.display();
+		if (this.displaySky){ 
+			this.textureBack.apply();
+			this.sky.display();
+		}
 
 		// ---- END Primitive drawing section
 	}
