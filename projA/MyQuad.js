@@ -53,15 +53,5 @@ class MyQuad extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	}
-
-	/**
-	 * @method updateTexCoords
-	 * Updates the list of texture coordinates of the quad
-	 * @param {Array} coords - Array of texture coordinates
-	 */
-	updateTexCoords(coords) {
-		this.texCoords = [...coords];
-		this.updateTexCoordsGLBuffers();
-	}
 }
 

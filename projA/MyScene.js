@@ -25,13 +25,14 @@ class MyScene extends CGFscene {
 		//Initialize scene objects
 		this.axis = new CGFaxis(this);
 		//this.prism = new MyPrism(this,6);
-		this.piramid = new MyPyramid(this,6,1);
+		this.piramid = new MyPyramid(this, 6, 1);
 		this.cyl = new MyCylinder(this, 6);
 		this.house = new MyHouse(this);
 		//this.tree = new MyTree(this, 0.2, 0.5, 0.5, 0.6, this.textureTrunk, this.textureTree);
 		this.treeGroup = new MyTreeGroupPatch(this);
 		this.treeRow = new MyTreeRowPatch(this);
-		this.hill = new MyVoxelHill(this,20);
+		this.hill = new MyVoxelHill(this, 5);
+		this.sky = new MyCubeMap(this);
 
 		//Objects connected to MyInterface
 		this.displayAxis = false;
@@ -40,25 +41,24 @@ class MyScene extends CGFscene {
 		this.displayTreeGroup = false;
 		this.displayTreeRow = false;
 		this.displayHill = false;
+		this.displaySky = true;
 	}
 	initLights() {
-		this.lights[0].setPosition(15, 2, 5, 1);
+		this.lights[0].setPosition(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
 		this.lights[0].update();
 	}
 	initCameras() {
-		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(20, 20, 20), vec3.fromValues(0, 0, 0));
+		this.camera = new CGFcamera(0.4, 0.1, 1000, vec3.fromValues(4, 0, 0), vec3.fromValues(0, 0, 0));
 	}
 	setDefaultAppearance() {
-		this.setAmbient(0.2, 0.4, 0.8, 1.0);
+		this.setAmbient(0.4, 0.6, 1, 1.0);
 		this.setDiffuse(0.2, 0.4, 0.8, 1.0);
 		this.setSpecular(0.2, 0.4, 0.8, 1.0);
 		this.setShininess(10.0);
 	}
-	initMaterials() {
-		
-	}
+	initMaterials() {}
 	display() {
 		// ---- BEGIN Background, camera and axis setup
 		// Clear image and depth buffer everytime we update the scene
@@ -86,8 +86,8 @@ class MyScene extends CGFscene {
 		if (this.displayPyr) this.piramid.display();
 		if (this.displayTreeGroup) this.treeGroup.display();
 		if (this.displayTreeRow) this.treeRow.display();
-
 		if (this.displayHill) this.hill.display();
+		if (this.displaySky) this.sky.display();
 
 		// ---- END Primitive drawing section
 	}
