@@ -23,7 +23,7 @@ class MyInterface extends CGFinterface {
 		this.gui.add(this.scene, 'displayTreeRow').name('Display Tree Row');
 		this.gui.add(this.scene, 'displayTreeGroup').name('Display Tree Gr.');
 		this.gui.add(this.scene, 'displayHill').name('Display Hill');
-
+		this.gui.add(this.scene, 'displaySky').name('Display Sky');
 
 		return true;
 	}
