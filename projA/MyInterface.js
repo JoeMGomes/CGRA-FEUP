@@ -24,6 +24,7 @@ class MyInterface extends CGFinterface {
 		this.gui.add(this.scene, 'displayTreeGroup').name('Display Tree Gr.');
 		this.gui.add(this.scene, 'displayHill').name('Display Hill');
 		this.gui.add(this.scene, 'displaySky').name('Display Sky');
+		this.gui.add(this.scene, 'displayFire').name('Display Fire');
 
 		this.gui.add(this.scene, 'selectAmbient', this.scene.ambientIDs).name('Select Ambitent');
 

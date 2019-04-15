@@ -34,6 +34,7 @@ class MyScene extends CGFscene {
 		this.hill = new MyVoxelHill(this, 5);
 		this.sky = new MyCubeMap(this, 2);
 		this.floor = new MyQuad(this);
+		this.fire = new MyFire(this);
 
 		this.texCoords = [ 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0 ];
 
@@ -44,6 +45,7 @@ class MyScene extends CGFscene {
 		this.displayTreeGroup = false;
 		this.displayTreeRow = false;
 		this.displayHill = false;
+		this.displayFire = true;
 		this.displaySky = true;
 
 		this.ambientIDs = { Day: 0, Night: 1 };
@@ -61,7 +63,7 @@ class MyScene extends CGFscene {
 		this.lights[1].update();
 	}
 	initCameras() {
-		this.camera = new CGFcamera(Math.PI/2, 0.1, 1500, vec3.fromValues(0, 0, 0), vec3.fromValues(1, 1, 1));
+		this.camera = new CGFcamera(Math.PI / 2, 0.1, 1500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 0, 0));
 	}
 	setDefaultAppearance() {
 		this.setAmbient(0.4, 0.6, 1, 1.0);
@@ -147,6 +149,7 @@ class MyScene extends CGFscene {
 			this.sky.display();
 			this.popMatrix();
 		}
+		if(this.displayFire) this.fire.display();
 
 		this.texCoords = [ 0, 250, 250, 250, 0, 0, 250, 0 ];
 		this.updateTexCoords();

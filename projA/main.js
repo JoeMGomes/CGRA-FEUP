@@ -55,6 +55,7 @@ serialInclude([
 	'MyVoxelHill.js',
 	'MyUnitCube.js',
 	'MyCubeMap.js',
+	'MyFire.js',
 
 	(main = function() {
 		var app = new CGFapplication(document.body);
