@@ -38,14 +38,16 @@ class MyTreeGroupPatch extends CGFobject {
 		this.textureTree.setDiffuse(0.9, 0.9, 0.9, 1);
 		this.textureTree.setSpecular(0.1, 0.1, 0.1, 1);
 		this.textureTree.setShininess(10.0);
-		this.textureTree.setTexture(new CGFtexture(scene, 'images/tree.png'));
+        this.textureTree.setTexture(new CGFtexture(scene, 'images/tree4.jpg'));
+        this.textureTree.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.textureTrunk = new CGFappearance(scene);
 		this.textureTrunk.setAmbient(0.1, 0.1, 0.1, 1);
 		this.textureTrunk.setDiffuse(0.9, 0.9, 0.9, 1);
 		this.textureTrunk.setSpecular(0.1, 0.1, 0.1, 1);
 		this.textureTrunk.setShininess(10.0);
-		this.textureTrunk.setTexture(new CGFtexture(scene, 'images/bark2.jpg'));
+        this.textureTrunk.setTexture(new CGFtexture(scene, 'images/bark6.jpg'));
+        this.textureTrunk.setTextureWrap('REPEAT', 'REPEAT');
     }
 	display() {
         this.scene.pushMatrix();
