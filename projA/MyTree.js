@@ -13,7 +13,6 @@ class MyTree extends CGFobject {
 		this.treeTopRadius = treeTopRadius;
 		this.trunkTexture = trunkTexture;
 		this.treeTopTexture = treeTopTexture;
-		this.degreeToRad = Math.PI / 180;
 		this.initBuffers(scene);
 		
 	}
@@ -25,9 +24,7 @@ class MyTree extends CGFobject {
 	display() {
 		this.trunkTexture.apply();
 		this.scene.pushMatrix();
-		//this.scene.translate(3+Math.sqrt(2), -1,0)
 		this.scene.scale(this.trunkRadius, this.trunkHeight, this.trunkRadius);
-		//this.scene.rotate (-180*this.degreeToRad,0,0,1);
 		this.scene.cylinder.display();
 		this.scene.popMatrix();
 

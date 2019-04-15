@@ -5,6 +5,7 @@
 class MyScene extends CGFscene {
 	constructor() {
 		super();
+		this.degreeToRad = Math.PI / 180;
 	}
 	init(application) {
 		super.init(application);
@@ -27,14 +28,18 @@ class MyScene extends CGFscene {
 		this.piramid = new MyPyramid(this,6,1);
 		this.cyl = new MyCylinder(this, 6);
 		this.house = new MyHouse(this);
-		this.tree = new MyTree(this, 2, 0.5, 2, 1, this.textureTrunk, this.textureTree);
-
-		this.displayAxis = false;
-		this.displayHouse = false;
-		this.displayTree = false;
-		this.displayPyr = true;
+		//this.tree = new MyTree(this, 0.2, 0.5, 0.5, 0.6, this.textureTrunk, this.textureTree);
+		this.treeGroup = new MyTreeGroupPatch(this);
+		this.treeRow = new MyTreeRowPatch(this);
+		this.hill = new MyVoxelHill(this,20);
 
 		//Objects connected to MyInterface
+		this.displayAxis = false;
+		this.displayHouse = false;
+		this.displayPyr = false;
+		this.displayTreeGroup = false;
+		this.displayTreeRow = false;
+		this.displayHill = false;
 	}
 	initLights() {
 		this.lights[0].setPosition(15, 2, 5, 1);
@@ -52,19 +57,7 @@ class MyScene extends CGFscene {
 		this.setShininess(10.0);
 	}
 	initMaterials() {
-		this.textureTree = new CGFappearance(this);
-		this.textureTree.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureTree.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureTree.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureTree.setShininess(10.0);
-		this.textureTree.setTexture(new CGFtexture(this, 'images/tree.png'));
-
-		this.textureTrunk = new CGFappearance(this);
-		this.textureTrunk.setAmbient(0.1, 0.1, 0.1, 1);
-		this.textureTrunk.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.textureTrunk.setSpecular(0.1, 0.1, 0.1, 1);
-		this.textureTrunk.setShininess(10.0);
-		this.textureTrunk.setTexture(new CGFtexture(this, 'images/bark2.jpg'));
+		
 	}
 	display() {
 		// ---- BEGIN Background, camera and axis setup
@@ -91,7 +84,10 @@ class MyScene extends CGFscene {
 		if (this.displayHouse) this.house.display();
 		//this.cyl.display();
 		if (this.displayPyr) this.piramid.display();
-		if (this.displayTree) this.tree.display();
+		if (this.displayTreeGroup) this.treeGroup.display();
+		if (this.displayTreeRow) this.treeRow.display();
+
+		if (this.displayHill) this.hill.display();
 
 		// ---- END Primitive drawing section
 	}

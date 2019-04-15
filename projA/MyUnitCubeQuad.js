@@ -4,8 +4,6 @@
  * @param scene - Reference to MyScene object
  */
 
-//let degreeToRad = Math.PI/180;
-
 class MyUnitCubeQuad extends CGFobject {
 
     constructor(scene) {
@@ -41,7 +39,7 @@ class MyUnitCubeQuad extends CGFobject {
        // this.textureTop.setTexture(new CGFtexture(scene, 'images/mineTop.png'));
     }
     display(){
-        this.textureSide.apply();
+        //this.textureSide.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         //Front face
         this.scene.pushMatrix();
@@ -70,7 +68,7 @@ class MyUnitCubeQuad extends CGFobject {
         this.scene.quadSide.display();
         this.scene.popMatrix();
 
-        this.textureTop.apply();
+        //this.textureTop.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         //Top face
         this.scene.pushMatrix();
@@ -79,7 +77,7 @@ class MyUnitCubeQuad extends CGFobject {
         this.scene.quadSide.display();
         this.scene.popMatrix();
 
-        this.textureBottom.apply();
+        //this.textureBottom.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         //Bottom face
         this.scene.pushMatrix();
