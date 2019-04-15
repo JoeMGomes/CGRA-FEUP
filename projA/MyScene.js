@@ -45,13 +45,21 @@ class MyScene extends CGFscene {
 		this.displayTreeRow = false;
 		this.displayHill = false;
 		this.displaySky = true;
+
+		this.ambientIDs = {'Day': 0, 'Night': 1};
+		this.selectAmbient = 0;
 		
 	}
 	initLights() {
 		this.lights[0].setPosition(50, 100, 50, 1);
-		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].enable();
+		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 0.1);
+		this.lights[0].disable();
 		this.lights[0].update();
+
+		this.lights[1].setPosition(50, 100, 50, 1);
+		this.lights[1].setDiffuse(.03, 1.0, .03, 0.1);
+		this.lights[1].disable();
+		this.lights[1].update();
 	}
 	initCameras() {
 		this.camera = new CGFcamera(0.4, 0.1, 1000, vec3.fromValues(250, 90, 250), vec3.fromValues(-100, 0, -100));
@@ -101,6 +109,17 @@ class MyScene extends CGFscene {
 		// ---- BEGIN Primitive drawing section
 		// this.prism.enableNormalViz();
 
+		if (this.selectAmbient == 1){
+			this.lights[0].disable();
+			this.lights[0].update();
+			this.lights[1].enable();
+			this.lights[1].update();
+		}else{
+			this.lights[0].enable();
+			this.lights[0].update();
+			this.lights[1].disable();
+			this.lights[1].update();
+		}
 		//this.textureTree.apply();
 		//this.prism.display();
 		if (this.displayHouse) this.house.display();
