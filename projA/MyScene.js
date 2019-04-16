@@ -24,11 +24,9 @@ class MyScene extends CGFscene {
 
 		//Initialize scene objects
 		this.axis = new CGFaxis(this);
-		//this.prism = new MyPrism(this,6);
 		this.piramid = new MyPyramid(this, 6, 1);
 		this.cyl = new MyCylinder(this, 6);
 		this.house = new MyHouse(this);
-		//this.tree = new MyTree(this, 0.2, 0.5, 0.5, 0.6, this.textureTrunk, this.textureTree);
 		this.treeGroup = new MyTreeGroupPatch(this);
 		this.treeRow = new MyTreeRowPatch(this);
 		this.hill = new MyVoxelHill(this, 5);
@@ -47,6 +45,7 @@ class MyScene extends CGFscene {
 		this.displayHill = false;
 		this.displayFire = true;
 		this.displaySky = true;
+		this.displayTexture = true;
 
 		this.ambientIDs = { 'Day': 0, 'Night': 1 };
 		this.selectAmbient = 0;
@@ -57,7 +56,6 @@ class MyScene extends CGFscene {
 		this.lights[0].setSpecular(1.0, 0.91, 0.647, 1);
 		this.lights[0].setConstantAttenuation(0);
 		this.lights[0].disable();
-		this.lights[0].setVisible(true);
 		this.lights[0].update();
 
 		this.lights[1].setPosition(-60, 230, -170, 1);
@@ -65,7 +63,6 @@ class MyScene extends CGFscene {
 		this.lights[1].setSpecular(0.31, 0.412, 0.533, 1);
 		this.lights[1].setConstantAttenuation(0.5);
 		this.lights[1].disable();
-		this.lights[1].setVisible(true);
 		this.lights[1].update();
 
 		this.lights[2].setPosition(0, 0.3, 0, 1);
@@ -73,7 +70,6 @@ class MyScene extends CGFscene {
 		this.lights[2].setSpecular(0.808, 0.118, 0.0, 1.0);
 		this.lights[2].setLinearAttenuation(0.05);
 		this.lights[2].disable();
-		this.lights[2].setVisible(true);
 		this.lights[2].update();
 	}
 	initCameras() {
@@ -111,6 +107,26 @@ class MyScene extends CGFscene {
 	updateTexCoords() {
 		this.floor.updateTexCoords(this.texCoords);
 	}
+	updateLights(){
+		if (this.selectAmbient == 1) {
+			this.lights[0].disable();
+			this.lights[0].update();
+			this.lights[1].enable();
+			this.lights[1].update();
+			this.lights[2].enable();
+			this.lights[2].setVisible(true);
+			this.lights[2].update();
+			
+		} else {
+			this.lights[0].enable();
+			this.lights[0].update();
+			this.lights[1].disable();
+			this.lights[1].update();
+			this.lights[2].disable();
+			this.lights[2].setVisible(false);
+			this.lights[2].update();
+		}
+	}
 	display() {
 		// ---- BEGIN Background, camera and axis setup
 		// Clear image and depth buffer everytime we update the scene
@@ -128,26 +144,25 @@ class MyScene extends CGFscene {
 		//Apply default appearance
 		this.setDefaultAppearance();
 
+		//Apply the lights according to the ambient mode
+		this.updateLights();
+
 		// ---- BEGIN Primitive drawing section
 		// this.prism.enableNormalViz();
 
-		if (this.selectAmbient == 1) {
-			this.lights[0].disable();
-			this.lights[0].update();
-			this.lights[1].enable();
-			this.lights[1].update();
-			this.lights[2].enable();
-			this.lights[2].update();
-		} else {
-			this.lights[0].enable();
-			this.lights[0].update();
-			this.lights[1].disable();
-			this.lights[1].update();
-			this.lights[2].disable();
-			this.lights[2].update();
+		//enable textures for object with specific materials
+		if (this.displayTexture){
+			this.enableTextures(true);
+		}else{
+			this.enableTextures(false);
 		}
-		//this.textureTree.apply();
-		//this.prism.display();
+		if(this.displayFire) this.fire.display();
+
+		this.enableTextures(true);
+		////////
+		
+		//other objects
+
 		if (this.displayHouse) this.house.display();
 
 		if (this.displayPyr) this.piramid.display();
@@ -167,7 +182,7 @@ class MyScene extends CGFscene {
 			this.sky.display();
 			this.popMatrix();
 		}
-		if(this.displayFire) this.fire.display();
+		
 
 		this.texCoords = [ 0, 250, 250, 250, 0, 0, 250, 0 ];
 		this.updateTexCoords();
