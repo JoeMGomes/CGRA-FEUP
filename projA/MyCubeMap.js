@@ -49,10 +49,8 @@ class MyCubeMap extends CGFobject {
 			
         ];
 
-        this.vertices = this.vertices1.map(x => x * 3);
-        console.log(this.vertices);
-
-
+        this.vertices = this.vertices1.map(x => x * 600);
+    
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 2, 1,
@@ -123,9 +121,9 @@ class MyCubeMap extends CGFobject {
             0.75,0.5,
             0.75,0.25,
             
-            0.0,0.5,
-            0.25,0.25,
             0.25,0.5,
+            0.25,0.25,
+            0.0,0.5,
             0.0,0.25,
 
             0.25,0.5,
