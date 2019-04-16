@@ -48,19 +48,33 @@ class MyScene extends CGFscene {
 		this.displayFire = true;
 		this.displaySky = true;
 
-		this.ambientIDs = { Day: 0, Night: 1 };
+		this.ambientIDs = { 'Day': 0, 'Night': 1 };
 		this.selectAmbient = 0;
 	}
 	initLights() {
-		this.lights[0].setPosition(50, 100, 50, 1);
-		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 0.1);
+		this.lights[0].setPosition(220, 190, 220, 1);
+		this.lights[0].setDiffuse(1.0, 0.91, 0.647, 1);
+		this.lights[0].setSpecular(1.0, 0.91, 0.647, 1);
+		this.lights[0].setConstantAttenuation(0);
 		this.lights[0].disable();
+		this.lights[0].setVisible(true);
 		this.lights[0].update();
 
-		this.lights[1].setPosition(50, 100, 50, 1);
-		this.lights[1].setDiffuse(1, 1.0, 1, 0.1);
+		this.lights[1].setPosition(-60, 230, -170, 1);
+		this.lights[1].setDiffuse(0.31, 0.412, 0.533, 1);
+		this.lights[1].setSpecular(0.31, 0.412, 0.533, 1);
+		this.lights[1].setConstantAttenuation(0.5);
 		this.lights[1].disable();
+		this.lights[1].setVisible(true);
 		this.lights[1].update();
+
+		this.lights[2].setPosition(0, 0.3, 0, 1);
+		this.lights[2].setDiffuse(0.808, 0.118, 0.0, 1.0);
+		this.lights[2].setSpecular(0.808, 0.118, 0.0, 1.0);
+		this.lights[2].setLinearAttenuation(0.8);
+		this.lights[2].disable();
+		this.lights[2].setVisible(true);
+		this.lights[2].update();
 	}
 	initCameras() {
 		this.camera = new CGFcamera(Math.PI / 2, 0.1, 1500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 0, 0));
@@ -122,11 +136,15 @@ class MyScene extends CGFscene {
 			this.lights[0].update();
 			this.lights[1].enable();
 			this.lights[1].update();
+			this.lights[2].enable();
+			this.lights[2].update();
 		} else {
 			this.lights[0].enable();
 			this.lights[0].update();
 			this.lights[1].disable();
 			this.lights[1].update();
+			this.lights[2].disable();
+			this.lights[2].update();
 		}
 		//this.textureTree.apply();
 		//this.prism.display();
