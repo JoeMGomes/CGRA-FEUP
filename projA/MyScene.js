@@ -160,7 +160,6 @@ class MyScene extends CGFscene {
 
 		this.enableTextures(true);
 		////////
-		
 		//other objects
 
 		if (this.displayHouse) this.house.display();
