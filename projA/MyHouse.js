@@ -26,8 +26,8 @@ class MyHouse extends CGFobject {
 		this.columnTexture = new CGFappearance(scene);
 		this.columnTexture.setAmbient(0.1, 0.1, 0.1, 1);
 		this.columnTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.columnTexture.setSpecular(0.1, 0.1, 0.1, 1);
-		this.columnTexture.setShininess(10.0);
+		this.columnTexture.setSpecular(1, 1, 1, 1);
+		this.columnTexture.setShininess(15.0);
 		this.columnTexture.setTexture(new CGFtexture(scene, 'images/column.jpg'));
 
 		this.wallTexture = new CGFappearance(scene);
@@ -46,6 +46,13 @@ class MyHouse extends CGFobject {
 		this.scene.unitCube.display();
 		this.scene.popMatrix();
 
+		//chamine
+		this.scene.pushMatrix();
+		this.scene.translate(-0.7, 1.6, 0);
+		this.scene.scale(0.3, 0.5, 0.3);
+		this.scene.unitCube.display();
+		this.scene.popMatrix();
+
 		//piramide
 		this.roofTexture.apply();
 		this.scene.pushMatrix();
@@ -53,13 +60,6 @@ class MyHouse extends CGFobject {
 		this.scene.scale(2.2, 1, 1.5);
 		this.scene.rotate(45 * this.scene.degreeToRad, 0, 1, 0);
 		this.scene.pyramid.display();
-		this.scene.popMatrix();
-
-		//chamine
-		this.scene.pushMatrix();
-		this.scene.translate(-0.7, 1.6, 0);
-		this.scene.scale(0.3, 0.5, 0.3);
-		this.scene.unitCube.display();
 		this.scene.popMatrix();
 
 		//colunas

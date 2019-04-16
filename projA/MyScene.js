@@ -38,16 +38,18 @@ class MyScene extends CGFscene {
 
 		//Objects connected to MyInterface
 		this.displayAxis = false;
-		this.displayHouse = false;
+		this.displayHouse = true;
 		this.displayPyr = false;
-		this.displayTreeGroup = false;
-		this.displayTreeRow = false;
-		this.displayHill = false;
+		this.displayTreeGroup = true;
+		this.displayTreeRow = true;
+		this.displayHill = true;
 		this.displayFire = true;
 		this.displaySky = true;
 		this.displayTexture = true;
 
-		this.ambientIDs = { 'Day': 0, 'Night': 1 };
+		this.log = false;
+
+		this.ambientIDs = { Day: 0, Night: 1 };
 		this.selectAmbient = 0;
 	}
 	initLights() {
@@ -58,14 +60,14 @@ class MyScene extends CGFscene {
 		this.lights[0].disable();
 		this.lights[0].update();
 
-		this.lights[1].setPosition(-60, 230, -170, 1);
+		this.lights[1].setPosition(60, 230, 170, 1);
 		this.lights[1].setDiffuse(0.31, 0.412, 0.533, 1);
 		this.lights[1].setSpecular(0.31, 0.412, 0.533, 1);
 		this.lights[1].setConstantAttenuation(0.5);
 		this.lights[1].disable();
 		this.lights[1].update();
 
-		this.lights[2].setPosition(0, 0.3, 0, 1);
+		this.lights[2].setPosition(2, 0.3, 2, 1);
 		this.lights[2].setDiffuse(0.808, 0.318, 0.0, 1.0);
 		this.lights[2].setSpecular(0.808, 0.118, 0.0, 1.0);
 		this.lights[2].setLinearAttenuation(0.05);
@@ -73,7 +75,13 @@ class MyScene extends CGFscene {
 		this.lights[2].update();
 	}
 	initCameras() {
-		this.camera = new CGFcamera(Math.PI / 2, 0.1, 1500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 0, 0));
+		this.camera = new CGFcamera(
+			Math.PI / 2,
+			0.1,
+			1500,
+			vec3.fromValues(-0.8057, 2.6724, 4.5621),
+			vec3.fromValues(2.7858, 0.25253, 1.23462)
+		);
 	}
 	setDefaultAppearance() {
 		this.setAmbient(0.4, 0.6, 1, 1.0);
@@ -107,7 +115,7 @@ class MyScene extends CGFscene {
 	updateTexCoords() {
 		this.floor.updateTexCoords(this.texCoords);
 	}
-	updateLights(){
+	updateLights() {
 		if (this.selectAmbient == 1) {
 			this.lights[0].disable();
 			this.lights[0].update();
@@ -116,7 +124,6 @@ class MyScene extends CGFscene {
 			this.lights[2].enable();
 			this.lights[2].setVisible(true);
 			this.lights[2].update();
-			
 		} else {
 			this.lights[0].enable();
 			this.lights[0].update();
@@ -151,25 +158,49 @@ class MyScene extends CGFscene {
 		// this.prism.enableNormalViz();
 
 		//enable textures for object with specific materials
-		if (this.displayTexture){
+		if (this.displayTexture) {
 			this.enableTextures(true);
-		}else{
+		} else {
 			this.enableTextures(false);
 		}
-		if(this.displayFire) this.fire.display();
+		if (this.displayFire) {
+			this.pushMatrix();
+			this.translate(2, 0, 2);
+			this.fire.display();
+			this.popMatrix();
+		}
 
-		this.enableTextures(true);
+		//this.enableTextures(true);
 		////////
 		//other objects
 
 		if (this.displayHouse) this.house.display();
 
 		if (this.displayPyr) this.piramid.display();
-		if (this.displayTreeGroup) this.treeGroup.display();
-		if (this.displayTreeRow) this.treeRow.display();
+
+		if (this.displayTreeGroup) {
+			this.pushMatrix();
+			this.scale(1,.8,1);
+			this.translate(-5,0,-18);
+			this.treeGroup.display();
+			this.translate(25,0,20);
+			this.treeGroup.display();
+			this.popMatrix();
+		}
+
+		if (this.displayTreeRow) {
+			this.pushMatrix();
+			this.translate(0, 0, -20);
+			this.treeRow.display();
+			this.translate(4, 0, -3);
+			this.treeRow.display();
+			this.popMatrix();
+		}
 		if (this.displayHill) {
 			this.pushMatrix();
 			this.translate(10, 4.5, 0);
+			this.hill.display();
+			this.translate(5, 0, -9);
 			this.hill.display();
 			this.popMatrix();
 		}
@@ -177,11 +208,11 @@ class MyScene extends CGFscene {
 			if (this.selectAmbient == 1) this.textureNight.apply();
 			else this.textureDay.apply();
 			this.pushMatrix();
+			this.rotate(Math.PI, 0, 1, 0);
 			this.scale(200, 200, 200);
 			this.sky.display();
 			this.popMatrix();
 		}
-		
 
 		this.texCoords = [ 0, 250, 250, 250, 0, 0, 250, 0 ];
 		this.updateTexCoords();
@@ -191,5 +222,10 @@ class MyScene extends CGFscene {
 		this.floor.display();
 
 		// ---- END Primitive drawing section
+
+		if (this.log) {
+			console.log(this.camera);
+			this.log = false;
+		}
 	}
 }
