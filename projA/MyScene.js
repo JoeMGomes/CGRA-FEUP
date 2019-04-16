@@ -24,8 +24,6 @@ class MyScene extends CGFscene {
 
 		//Initialize scene objects
 		this.axis = new CGFaxis(this);
-		this.piramid = new MyPyramid(this, 6, 1);
-		this.cyl = new MyCylinder(this, 6);
 		this.house = new MyHouse(this);
 		this.treeGroup = new MyTreeGroupPatch(this);
 		this.treeRow = new MyTreeRowPatch(this);
@@ -38,16 +36,7 @@ class MyScene extends CGFscene {
 
 		//Objects connected to MyInterface
 		this.displayAxis = false;
-		this.displayHouse = true;
-		this.displayPyr = false;
-		this.displayTreeGroup = true;
-		this.displayTreeRow = true;
-		this.displayHill = true;
-		this.displayFire = true;
-		this.displaySky = true;
 		this.displayTexture = true;
-
-		this.log = false;
 
 		this.ambientIDs = { Day: 0, Night: 1 };
 		this.selectAmbient = 0;
@@ -155,7 +144,6 @@ class MyScene extends CGFscene {
 		this.updateLights();
 
 		// ---- BEGIN Primitive drawing section
-		// this.prism.enableNormalViz();
 
 		//enable textures for object with specific materials
 		if (this.displayTexture) {
@@ -163,56 +151,48 @@ class MyScene extends CGFscene {
 		} else {
 			this.enableTextures(false);
 		}
-		if (this.displayFire) {
-			this.pushMatrix();
-			this.translate(2, 0, 2);
-			this.fire.display();
-			this.popMatrix();
-		}
 
-		//this.enableTextures(true);
-		////////
-		//other objects
+		//fire
+		this.pushMatrix();
+		this.translate(2, 0, 2);
+		this.fire.display();
+		this.popMatrix();
 
-		if (this.displayHouse) this.house.display();
+		//house
+		this.house.display();
 
-		if (this.displayPyr) this.piramid.display();
+		//tree group
+		this.pushMatrix();
+		this.scale(1, 0.8, 1);
+		this.translate(-5, 0, -18);
+		this.treeGroup.display();
+		this.translate(25, 0, 20);
+		this.treeGroup.display();
+		this.popMatrix();
 
-		if (this.displayTreeGroup) {
-			this.pushMatrix();
-			this.scale(1,.8,1);
-			this.translate(-5,0,-18);
-			this.treeGroup.display();
-			this.translate(25,0,20);
-			this.treeGroup.display();
-			this.popMatrix();
-		}
+		//tree row
+		this.pushMatrix();
+		this.translate(0, 0, -20);
+		this.treeRow.display();
+		this.translate(4, 0, -3);
+		this.treeRow.display();
+		this.popMatrix();
 
-		if (this.displayTreeRow) {
-			this.pushMatrix();
-			this.translate(0, 0, -20);
-			this.treeRow.display();
-			this.translate(4, 0, -3);
-			this.treeRow.display();
-			this.popMatrix();
-		}
-		if (this.displayHill) {
-			this.pushMatrix();
-			this.translate(10, 4.5, 0);
-			this.hill.display();
-			this.translate(5, 0, -9);
-			this.hill.display();
-			this.popMatrix();
-		}
-		if (this.displaySky) {
-			if (this.selectAmbient == 1) this.textureNight.apply();
-			else this.textureDay.apply();
-			this.pushMatrix();
-			this.rotate(Math.PI, 0, 1, 0);
-			this.scale(200, 200, 200);
-			this.sky.display();
-			this.popMatrix();
-		}
+		//hill
+		this.pushMatrix();
+		this.translate(10, 4.5, 0);
+		this.hill.display();
+		this.translate(5, 0, -9);
+		this.hill.display();
+		this.popMatrix();
+
+		//cubemap
+		if (this.selectAmbient == 1) this.textureNight.apply();
+		else this.textureDay.apply();
+		this.pushMatrix();
+		this.rotate(Math.PI, 0, 1, 0);
+		this.sky.display();
+		this.popMatrix();
 
 		this.texCoords = [ 0, 250, 250, 250, 0, 0, 250, 0 ];
 		this.updateTexCoords();
@@ -222,10 +202,5 @@ class MyScene extends CGFscene {
 		this.floor.display();
 
 		// ---- END Primitive drawing section
-
-		if (this.log) {
-			console.log(this.camera);
-			this.log = false;
-		}
 	}
 }
