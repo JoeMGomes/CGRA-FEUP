@@ -31,7 +31,7 @@ class MyTreeRowPatch extends CGFobject {
 		this.textureTree.setDiffuse(0.9, 0.9, 0.9, 1);
 		this.textureTree.setSpecular(0.1, 0.1, 0.1, 1);
 		this.textureTree.setShininess(10.0);
-		this.textureTree.setTexture(new CGFtexture(scene, 'images/tree.png'));
+		this.textureTree.setTexture(new CGFtexture(scene, 'images/tree4.jpg'));
 
 		this.textureTrunk = new CGFappearance(scene);
 		this.textureTrunk.setAmbient(0.1, 0.1, 0.1, 1);
