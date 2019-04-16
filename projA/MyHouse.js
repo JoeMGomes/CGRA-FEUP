@@ -35,7 +35,7 @@ class MyHouse extends CGFobject {
 		this.wallTexture.setDiffuse(0.9, 0.9, 0.9, 1);
 		this.wallTexture.setSpecular(1, 1, 1, 1);
 		this.wallTexture.setShininess(15.0);
-		this.wallTexture.setTexture(new CGFtexture(scene, 'images/column2.jpg'));
+		this.wallTexture.setTexture(new CGFtexture(scene, 'images/wall.jpg'));
 	}
 	display() {
 		//cubo

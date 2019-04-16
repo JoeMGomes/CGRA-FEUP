@@ -6,7 +6,6 @@
 class MyFire extends CGFobject {
 	constructor(scene) {
 		super(scene);
-		//this.degreeToRad = Math.PI / 180;
 		this.initBuffers(scene);
 		this.initTextures(scene);
 	}
@@ -19,7 +18,7 @@ class MyFire extends CGFobject {
 		this.columnTexture.setDiffuse(0.9, 0.9, 0.9, 1);
 		this.columnTexture.setSpecular(0.1, 0.1, 0.1, 1);
 		this.columnTexture.setShininess(10.0);
-		this.columnTexture.setTexture(new CGFtexture(scene, 'images/bark6.jpg'));
+		this.columnTexture.setTexture(new CGFtexture(scene, 'images/bark.jpg'));
 	}
 	display() {
 		//Paus do chao
