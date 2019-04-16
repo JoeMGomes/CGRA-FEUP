@@ -26,15 +26,15 @@ class MyHouse extends CGFobject {
 		this.columnTexture = new CGFappearance(scene);
 		this.columnTexture.setAmbient(0.1, 0.1, 0.1, 1);
 		this.columnTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.columnTexture.setSpecular(1, 1, 1, 1);
-		this.columnTexture.setShininess(15.0);
+		this.columnTexture.setSpecular(0.1, 0.1, 0.1, 1);
+		this.columnTexture.setShininess(10.0);
 		this.columnTexture.setTexture(new CGFtexture(scene, 'images/column.jpg'));
 
 		this.wallTexture = new CGFappearance(scene);
 		this.wallTexture.setAmbient(0.1, 0.1, 0.1, 1);
 		this.wallTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.wallTexture.setSpecular(0.1, 0.1, 0.1, 1);
-		this.wallTexture.setShininess(10.0);
+		this.wallTexture.setSpecular(1, 1, 1, 1);
+		this.wallTexture.setShininess(15.0);
 		this.wallTexture.setTexture(new CGFtexture(scene, 'images/column2.jpg'));
 	}
 	display() {
