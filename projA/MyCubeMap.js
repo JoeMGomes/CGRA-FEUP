@@ -130,7 +130,6 @@ class MyCubeMap extends CGFobject {
 			0.5, 0.75,
 			0.25, 0.75,
 			
-
 			0.25, 0.25,
 			0.5, 0.25,
 			0.25, 0.0,
@@ -145,5 +144,6 @@ class MyCubeMap extends CGFobject {
 		this.initBuffers();
         this.initNormalVizBuffers();
 	}
+
 }
 

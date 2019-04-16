@@ -1,6 +1,7 @@
 /**
-* MyHouse
+* MyFire
 * @constructor
+* @param scene - Reference to MyScene object
 */
 
 class MyFire extends CGFobject {

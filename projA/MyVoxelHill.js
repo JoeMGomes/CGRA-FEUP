@@ -1,6 +1,7 @@
 /**
 * MyVoxelHill
 * @constructor
+* @param scene - Reference to MyScene object
 */
 
 class MyVoxelHill extends CGFobject {

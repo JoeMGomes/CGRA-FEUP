@@ -50,12 +50,11 @@ class MyScene extends CGFscene {
 		this.lights[0].disable();
 		this.lights[0].update();
 
-		this.lights[1].setPosition(12, 32, 26, 1);
+		this.lights[1].setPosition(12, 30, 26, 1);
 		this.lights[1].setDiffuse(0.31, 0.412, 0.533, 1);
 		this.lights[1].setSpecular(0.31, 0.412, 0.533, 1);
 		this.lights[1].setConstantAttenuation(0.6);
 		this.lights[1].disable();
-		this.lights[1].setVisible(true);
 		this.lights[1].update();
 
 		this.lights[2].setPosition(2, 0.3, 2, 1);
@@ -222,7 +221,7 @@ class MyScene extends CGFscene {
 		this.pushMatrix();
 		this.textureGrass.apply();
 		this.rotate(-90 * this.degreeToRad, 1, 0, 0);
-		this.scale(500, 500, 1, 1);
+		this.scale(90, 90, 1, 1);
 		this.floor.display();
 		this.popMatrix();
 

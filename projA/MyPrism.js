@@ -1,6 +1,8 @@
 /**
 * MyPrism
 * @constructor
+* @param scene - Reference to MyScene object
+* @param slices - Number of lateral sides of the prism
 */
 class MyPrism extends CGFobject {
 	constructor(scene, slices) {
