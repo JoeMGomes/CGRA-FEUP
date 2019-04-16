@@ -69,9 +69,9 @@ class MyScene extends CGFscene {
 		this.lights[1].update();
 
 		this.lights[2].setPosition(0, 0.3, 0, 1);
-		this.lights[2].setDiffuse(0.808, 0.118, 0.0, 1.0);
+		this.lights[2].setDiffuse(0.808, 0.318, 0.0, 1.0);
 		this.lights[2].setSpecular(0.808, 0.118, 0.0, 1.0);
-		this.lights[2].setLinearAttenuation(0.8);
+		this.lights[2].setLinearAttenuation(0.05);
 		this.lights[2].disable();
 		this.lights[2].setVisible(true);
 		this.lights[2].update();
