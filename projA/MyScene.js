@@ -61,7 +61,7 @@ class MyScene extends CGFscene {
 		this.lights[2].setDiffuse(0.808, 0.318, 0.0, 1.0);
 		this.lights[2].setSpecular(0.808, 0.118, 0.0, 1.0);
 		this.lights[2].setConstantAttenuation(0.1);
-		this.lights[2].setLinearAttenuation(0.9);
+		this.lights[2].setLinearAttenuation(0.8);
 		this.lights[2].disable();
 		this.lights[2].update();
 	}
@@ -147,23 +147,23 @@ class MyScene extends CGFscene {
 
 		// ---- BEGIN Primitive drawing section
 
-		//enable textures for object with specific materials
+		//Enable textures for object with specific materials
 		if (this.displayTexture) {
 			this.enableTextures(true);
 		} else {
 			this.enableTextures(false);
 		}
 
-		//fire
+		//Fire
 		this.pushMatrix();
 		this.translate(2, 0, 2);
 		this.fire.display();
 		this.popMatrix();
 
-		//house
+		//House
 		this.house.display();
 
-		//tree group
+		//Tree Group
 		this.pushMatrix();
 		this.scale(1, .8, 1);
 		this.translate(-5, 0, -18);
@@ -177,7 +177,7 @@ class MyScene extends CGFscene {
 		this.treeGroup.display();
 		this.popMatrix();
 
-		//tree row
+		//Tree Row
 		this.pushMatrix();
 		this.translate(0, 0, -20);
 		this.treeRow.display();
@@ -192,7 +192,7 @@ class MyScene extends CGFscene {
 		this.treeRow.display();
 		this.popMatrix();
 
-		//hill
+		//Hill
 		this.pushMatrix();
 		this.translate(10, 4.5, 0);
 		this.hill.display();
@@ -201,17 +201,23 @@ class MyScene extends CGFscene {
 		this.translate(7, -1, 12);
 		this.hill.display();
 		this.popMatrix();
+	
 
-		//cubemap
+		this.enableTextures(true);
+
+		//CubeMap
 		if (this.selectAmbient == 1) this.textureNight.apply();
 		else this.textureDay.apply();
 		this.pushMatrix();
 		this.rotate(Math.PI, 0, 1, 0);
 		this.sky.display();
 		this.popMatrix();
+		
 
+		//Floor
 		this.texCoords = [ 0, 250, 250, 250, 0, 0, 250, 0 ];
 		this.updateTexCoords();
+
 		this.pushMatrix();
 		this.textureGrass.apply();
 		this.rotate(-90 * this.degreeToRad, 1, 0, 0);
