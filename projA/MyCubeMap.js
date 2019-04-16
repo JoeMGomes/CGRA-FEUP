@@ -4,10 +4,9 @@
  * @param scene - Reference to MyScene object
  */
 class MyCubeMap extends CGFobject {
-	constructor(scene, scale) {
+	constructor(scene) {
 		super(scene);
         this.initBuffers();
-        this.scale = scale;
 	}
 	initBuffers() {
 		this.vertices1 = [
@@ -49,7 +48,7 @@ class MyCubeMap extends CGFobject {
 			
         ];
 
-        this.vertices = this.vertices1.map(x => x * 600);
+        this.vertices = this.vertices1.map(x => x * 90);
     
 		//Counter-clockwise reference of vertices
 		this.indices = [

@@ -28,7 +28,8 @@ class MyScene extends CGFscene {
 		this.treeGroup = new MyTreeGroupPatch(this);
 		this.treeRow = new MyTreeRowPatch(this);
 		this.hill = new MyVoxelHill(this, 5);
-		this.sky = new MyCubeMap(this, 2);
+		this.hill2 = new MyVoxelHill(this, 6);
+		this.sky = new MyCubeMap(this);
 		this.floor = new MyQuad(this);
 		this.fire = new MyFire(this);
 
@@ -38,28 +39,29 @@ class MyScene extends CGFscene {
 		this.displayAxis = false;
 		this.displayTexture = true;
 
-		this.ambientIDs = { Day: 0, Night: 1 };
+		this.ambientIDs = { 'Day': 0, 'Night': 1 };
 		this.selectAmbient = 0;
 	}
 	initLights() {
-		this.lights[0].setPosition(220, 190, 220, 1);
-		this.lights[0].setDiffuse(1.0, 0.91, 0.647, 1);
-		this.lights[0].setSpecular(1.0, 0.91, 0.647, 1);
-		this.lights[0].setConstantAttenuation(0);
+		this.lights[0].setPosition(-35, 35, -35, 1);
+		this.lights[0].setDiffuse(1.0, 0.91, 0.7, 1);
+		this.lights[0].setSpecular(1.0, 0.91, 0.7, 1);
+		this.lights[0].setConstantAttenuation(0.045);
 		this.lights[0].disable();
 		this.lights[0].update();
 
-		this.lights[1].setPosition(60, 230, 170, 1);
+		this.lights[1].setPosition(12, 32, 30, 1);
 		this.lights[1].setDiffuse(0.31, 0.412, 0.533, 1);
 		this.lights[1].setSpecular(0.31, 0.412, 0.533, 1);
-		this.lights[1].setConstantAttenuation(0.5);
+		this.lights[1].setConstantAttenuation(0.6);
 		this.lights[1].disable();
 		this.lights[1].update();
 
 		this.lights[2].setPosition(2, 0.3, 2, 1);
 		this.lights[2].setDiffuse(0.808, 0.318, 0.0, 1.0);
 		this.lights[2].setSpecular(0.808, 0.118, 0.0, 1.0);
-		this.lights[2].setLinearAttenuation(0.05);
+		this.lights[2].setConstantAttenuation(0.1);
+		this.lights[2].setLinearAttenuation(0.9);
 		this.lights[2].disable();
 		this.lights[2].update();
 	}
@@ -68,7 +70,7 @@ class MyScene extends CGFscene {
 			Math.PI / 2,
 			0.1,
 			1500,
-			vec3.fromValues(-0.8057, 2.6724, 4.5621),
+			vec3.fromValues(-1.2989, 3.0047, 5.0191),
 			vec3.fromValues(2.7858, 0.25253, 1.23462)
 		);
 	}
@@ -163,10 +165,15 @@ class MyScene extends CGFscene {
 
 		//tree group
 		this.pushMatrix();
-		this.scale(1, 0.8, 1);
+		this.scale(1, .8, 1);
 		this.translate(-5, 0, -18);
 		this.treeGroup.display();
-		this.translate(25, 0, 20);
+		this.popMatrix();
+
+		this.pushMatrix();
+		this.translate(25, 0, 7);
+		this.rotate(-Math.PI / 2, 0, 1, 0);
+		this.scale(1, .8, 1);
 		this.treeGroup.display();
 		this.popMatrix();
 
@@ -178,11 +185,20 @@ class MyScene extends CGFscene {
 		this.treeRow.display();
 		this.popMatrix();
 
+		this.pushMatrix();
+		this.pushMatrix();
+		this.translate(17, 0, -30);
+		this.rotate(-50 * this.degreeToRad, 0, 1, 0);
+		this.treeRow.display();
+		this.popMatrix();
+
 		//hill
 		this.pushMatrix();
 		this.translate(10, 4.5, 0);
 		this.hill.display();
-		this.translate(5, 0, -9);
+		this.translate(5, 1, -11);
+		this.hill2.display();
+		this.translate(7, -1, 12);
 		this.hill.display();
 		this.popMatrix();
 
@@ -196,10 +212,12 @@ class MyScene extends CGFscene {
 
 		this.texCoords = [ 0, 250, 250, 250, 0, 0, 250, 0 ];
 		this.updateTexCoords();
+		this.pushMatrix();
 		this.textureGrass.apply();
 		this.rotate(-90 * this.degreeToRad, 1, 0, 0);
 		this.scale(500, 500, 1, 1);
 		this.floor.display();
+		this.popMatrix();
 
 		// ---- END Primitive drawing section
 	}
