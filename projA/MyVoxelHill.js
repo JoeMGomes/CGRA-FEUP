@@ -14,15 +14,15 @@ class MyVoxelHill extends CGFobject {
 		this.unitCube = new MyUnitCubeQuad(scene);
 	}
 	initTextures(scene) {
-		this.roofTexture = new CGFappearance(scene);
-		this.roofTexture.setAmbient(0.1, 0.1, 0.1, 1);
-		this.roofTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-		this.roofTexture.setSpecular(0.1, 0.1, 0.1, 1);
-		this.roofTexture.setShininess(10.0);
-		this.roofTexture.setTexture(new CGFtexture(scene, 'images/hill.jpg'));
+		this.hillTexture = new CGFappearance(scene);
+		this.hillTexture.setAmbient(0.1, 0.1, 0.1, 1);
+		this.hillTexture.setDiffuse(0.9, 0.9, 0.9, 1);
+		this.hillTexture.setSpecular(0.1, 0.1, 0.1, 1);
+		this.hillTexture.setShininess(10.0);
+		this.hillTexture.setTexture(new CGFtexture(scene, 'images/hill.jpg'));
 	}
 	display() {
-		this.roofTexture.apply();
+		this.hillTexture.apply();
 		this.side_numb = 1;
 		this.scene.pushMatrix();
 		for (var i = 1; i <= this.levels; i++) {
