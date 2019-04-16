@@ -1,6 +1,7 @@
 /**
 * MyCone
 * @constructor
+* @param scene - Reference to MyScene object
 */
 class MyCone extends CGFobject {
 	constructor(scene, slices, stacks) {

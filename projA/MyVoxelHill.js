@@ -2,6 +2,7 @@
 * MyVoxelHill
 * @constructor
 * @param scene - Reference to MyScene object
+* @param levels - Number os levels of the hill
 */
 
 class MyVoxelHill extends CGFobject {

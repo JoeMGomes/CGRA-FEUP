@@ -1,6 +1,7 @@
 /**
 * MyPyramid
 * @constructor
+* @param scene - Reference to MyScene object
 */
 class MyPyramid extends CGFobject {
 	constructor(scene, slices, stacks) {

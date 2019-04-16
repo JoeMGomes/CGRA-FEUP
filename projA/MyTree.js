@@ -2,6 +2,12 @@
  * MyTree
  * @constructor
  * @param scene - Reference to MyScene object
+ * @param trunkHeight - tree trunk height
+ * @param trunkRadius - tree trunk radius
+ * @param treeTopHeight - tree top height
+ * @param treeTopRadius - tree top radius
+ * @param trunkTexture - texture for the tree trunk
+ * @param treeTopTexture - texture for the tree top
  */
 
 class MyTree extends CGFobject {

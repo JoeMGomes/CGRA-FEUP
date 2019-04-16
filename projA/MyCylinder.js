@@ -1,6 +1,8 @@
 /**
 * MyCylinder
 * @constructor
+* @param scene - Reference to MyScene object
+* @param slices - Number of slices in which the lateral face is divided
 */
 class MyCylinder extends CGFobject {
 	constructor(scene, slices) {
