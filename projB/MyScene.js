@@ -5,6 +5,7 @@
 class MyScene extends CGFscene {
     constructor() {
         super();
+        this.degreeToRad = Math.PI /180;
     }
     init(application) {
         super.init(application);
@@ -25,6 +26,7 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
         this.house = new MyHouse(this);
+        this.bird = new MyBird (this);
 
         //Objects connected to MyInterface
     }
@@ -71,7 +73,8 @@ class MyScene extends CGFscene {
         this.plane.display();
         this.popMatrix();
 
-        this.house.display();
+        //this.house.display();
+        this.bird.display();
         // ---- END Primitive drawing section
     }
 }

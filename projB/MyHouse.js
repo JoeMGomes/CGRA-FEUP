@@ -13,7 +13,7 @@ class MyHouse extends CGFobject {
 	}
 	initBuffers(scene) {
 		scene.unitCube = new MyUnitCubeQuad(scene);
-		scene.pyramid = new MyPyramid(scene, 4, 1);
+		scene.pyramid = new MyPyramid(scene, 4, 2);
 		scene.prism = new MyPrism(scene, 10);
 	}
 	initTextures(scene) {
