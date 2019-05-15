@@ -24,6 +24,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
+        this.house = new MyHouse(this);
 
         //Objects connected to MyInterface
     }
@@ -69,6 +70,8 @@ class MyScene extends CGFscene {
         this.scale(60, 60, 1);
         this.plane.display();
         this.popMatrix();
+
+        this.house.display();
         // ---- END Primitive drawing section
     }
 }
