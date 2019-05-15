@@ -13,6 +13,7 @@ class MyBird extends CGFobject {
 		scene.cylinder = new MyCylinder(scene,5);
 		scene.pyramid = new MyPyramid(scene, 5, 2);
         scene.plane = new MyQuad (scene);
+        scene.cone = new MyCone (scene, 5,0.2);
         //triangulo
     }
     
@@ -24,11 +25,40 @@ class MyBird extends CGFobject {
         this.scene.cylinder.display();
         this.scene.popMatrix();
 
+        this.scene.pushMatrix();
+        this.scene.translate (1,0,0);
+        this.scene.rotate(-90*this.scene.degreeToRad, 0,0,1);
+        this.scene.cone.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.rotate(72.5/2.0*this.scene.degreeToRad, 1,0,0);
+        this.scene.rotate(90*this.scene.degreeToRad, 0,0,1);
+        this.scene.cone.display();
+        this.scene.popMatrix();
+        ///////
+
         //cabeca
         this.scene.pushMatrix();
-        this.scene.scale(1,0.5,0.5);
+        this.scene.translate(0.3,0.8,0.8);
+        this.scene.scale(0.5,0.5,0.5);
         this.scene.rotate(-90*this.scene.degreeToRad, 0,0,1);
         this.scene.cylinder.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate (0.8,0.8,0.8);
+        this.scene.scale(0.5,0.5,0.5);
+        this.scene.rotate(-90*this.scene.degreeToRad, 0,0,1);
+        this.scene.cone.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.3,0.8,0.8);
+        this.scene.scale(0.5,0.5,0.5);
+        this.scene.rotate(72.5/2.0*this.scene.degreeToRad, 1,0,0);
+        this.scene.rotate(90*this.scene.degreeToRad, 0,0,1);
+        this.scene.cone.display();
         this.scene.popMatrix();
 
 		//cubo
