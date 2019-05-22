@@ -5,9 +5,14 @@
 */
 
 class MyBird extends CGFobject {
-	constructor(scene) {
+	constructor(scene,orientation,x,y,z,speed) {
 		super(scene);
-		this.initBuffers(scene);
+        this.initBuffers(scene);
+        this.orientation = orientation;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.speed = speed;
 	}
 	initBuffers(scene) {
 		scene.cylinder = new MyCylinder(scene,5);
