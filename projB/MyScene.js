@@ -28,13 +28,12 @@ class MyScene extends CGFscene {
 		
 		//Initialize scene objects
 		this.axis = new CGFaxis(this);
-		this.plane = new Plane(this, 32);
+		this.terrain = new MyTerrain(this, this.gl);
 		this.house = new MyHouse(this);
         this.bird = new MyBird(this,0,0,0,0,0);
         
-        this.oldTime = 0;
-        
-
+		this.oldTime = 0;
+		
 		//Objects connected to MyInterface
 	}
 	initLights() {
@@ -100,8 +99,6 @@ class MyScene extends CGFscene {
 		this.oldTime = t;
 		this.bird.move(d); //TODO
 		}
-		
-       
 	}
 
 	display() {
@@ -135,6 +132,4 @@ class MyScene extends CGFscene {
 		this.popMatrix();
 		// ---- END Primitive drawing section
 	}
-
-
 }
