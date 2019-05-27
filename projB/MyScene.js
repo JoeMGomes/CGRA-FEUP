@@ -13,7 +13,7 @@ class MyScene extends CGFscene {
 		this.initLights();
 
 		//Background color
-		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		this.gl.clearColor(0.0, 0.0, 0.0, 0.0);
 
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
@@ -22,14 +22,18 @@ class MyScene extends CGFscene {
 		this.enableTextures(true);
 		this.setUpdatePeriod(50);
 
+		//Interface
+		this.speedFactor = 1;
+		this.scaleFactor = 1;
+		
 		//Initialize scene objects
 		this.axis = new CGFaxis(this);
 		this.plane = new Plane(this, 32);
 		this.house = new MyHouse(this);
-        this.bird = new MyBird(this);
+        this.bird = new MyBird(this,0,0,0,0,0);
         
         this.oldTime = 0;
-        set
+        
 
 		//Objects connected to MyInterface
 	}
@@ -56,24 +60,48 @@ class MyScene extends CGFscene {
 		if (this.gui.isKeyPressed('KeyW')) {
 			text += ' W ';
 			keysPressed = true;
+			this.bird.accelerate(this.speedFactor, true);
+			console.log(this.bird.x,this.bird.z,this.bird.speed);
 		}
 		if (this.gui.isKeyPressed('KeyS')) {
 			text += ' S ';
 			keysPressed = true;
+			this.bird.accelerate(this.speedFactor,false);
+			console.log(this.bird.x,this.bird.z,this.bird.speed);
 		}
-		if (keysPressed) console.log(text);
+		if (this.gui.isKeyPressed('KeyA')) {
+			text += ' A ';
+			keysPressed = true;
+			this.bird.rotate(this.speedFactor,true);
+			console.log(this.bird.x,this.bird.z,this.bird.speed);
+		}
+		if (this.gui.isKeyPressed('KeyD')) {
+			text += ' D ';
+			keysPressed = true;
+			this.bird.rotate(this.speedFactor,false);
+			console.log(this.bird.x,this.bird.z,this.bird.speed);
+		}
+		if (this.gui.isKeyPressed('KeyR')) {
+			text += ' R ';
+			keysPressed = true;
+			this.bird.resetValues();
+			console.log(this.bird.x,this.bird.z,this.bird.speed);
+		}
+		if (keysPressed)console.log(text);
     }
    
 	update(t) {
         this.checkKeys();
-        if(this.oldTime = 0){
-             oldTime = t;
+        if(this.oldTime == 0){
+			 this.oldTime = t;
         }else{
-         delta = t - this.oldTime;
-         d = this.bird.speed * delta;
-         this.oldTime = t;
-        }
-        //this.bird.move(); //TODO
+		var delta = (t - this.oldTime) / 1000.0;
+       	var  d = this.bird.speed * delta;
+		this.oldTime = t;
+		this.bird.move(d); //TODO
+		}
+		
+       
 	}
 
 	display() {
@@ -101,7 +129,12 @@ class MyScene extends CGFscene {
 		this.popMatrix();
 
 		//this.house.display();
+		this.pushMatrix()
+		this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 		this.bird.display();
+		this.popMatrix();
 		// ---- END Primitive drawing section
 	}
+
+
 }
