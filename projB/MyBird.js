@@ -271,4 +271,10 @@ class MyBird extends CGFobject {
         this.speed = 0;
         this.orientation = 0;
     }
+
+    fly(t, factor){
+        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) ;
+        this.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*factor);
+
+    }
 }

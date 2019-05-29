@@ -32,6 +32,7 @@ class MyScene extends CGFscene {
 		this.house = new MyHouse(this);
 		this.bird = new MyBird(this,0,0,0,0,0);
 		this.nest = new MyNest(this);
+		this.treeBranch = new MyTreeBranch(this);
         
 		this.oldTime = 0;
 		
@@ -62,30 +63,31 @@ class MyScene extends CGFscene {
 			keysPressed = true;
 			this.bird.accelerate(this.speedFactor, true);
 			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}
-		if (this.gui.isKeyPressed('KeyS')) {
+		}else if (this.gui.isKeyPressed('KeyS')) {
 			text += ' S ';
 			keysPressed = true;
 			this.bird.accelerate(this.speedFactor,false);
 			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}
-		if (this.gui.isKeyPressed('KeyA')) {
+		}else if (this.gui.isKeyPressed('KeyA')) {
 			text += ' A ';
 			keysPressed = true;
 			this.bird.rotate(this.speedFactor,true);
 			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}
-		if (this.gui.isKeyPressed('KeyD')) {
+		}else if (this.gui.isKeyPressed('KeyD')) {
 			text += ' D ';
 			keysPressed = true;
 			this.bird.rotate(this.speedFactor,false);
 			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}
-		if (this.gui.isKeyPressed('KeyR')) {
+		}else if (this.gui.isKeyPressed('KeyR')) {
 			text += ' R ';
 			keysPressed = true;
 			this.bird.resetValues();
 			console.log(this.bird.x,this.bird.z,this.bird.speed);
+		}else if (this.gui.isKeyPressed('KeyP')) {
+			text += ' P ';
+			keysPressed = true;
+			
+			console.log("goin down");
 		}
 		if (keysPressed)console.log(text);
     }
@@ -98,10 +100,9 @@ class MyScene extends CGFscene {
 		var delta = (t - this.oldTime) / 1000.0;
        	var  d = this.bird.speed * delta;
 		this.oldTime = t;
-		this.bird.move(d); //TODO
+		this.bird.move(d); 
 		
-		this.bird.y = 0.25*Math.sin(2*Math.PI* t/1000*this.speedFactor + Math.PI);
-        this.bird.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*this.speedFactor);
+		this.bird.fly(t, this.speedFactor);
 		}
 	}
 
@@ -123,22 +124,32 @@ class MyScene extends CGFscene {
 		this.setDefaultAppearance();
 
 		// ---- BEGIN Primitive drawing section
-
+		//Branch
 		this.pushMatrix();
+		this.treeBranch.display();
+		this.popMatrix();
+
+		//NEST
+		this.pushMatrix();
+		this.translate(-11,2.1,-4);
+		this.scale(.5,.5,.5);
 		this.nest.display();
 		this.popMatrix();
+
+		//BIRD
+		this.pushMatrix()
+		this.translate(0,3.5,0);
+		this.scale(this.scaleFactor*0.5, this.scaleFactor*0.5, this.scaleFactor*0.5);
+		this.bird.display();
+		this.popMatrix();
+
+		//TERRAIN
 		this.pushMatrix();
 		this.rotate(-0.5 * Math.PI, 1, 0, 0);
 		this.scale(60, 60, 1);
 		this.terrain.display();
 		this.popMatrix();
 
-		//this.house.display();
-		this.pushMatrix()
-		this.translate(0,3.5,0);
-		this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-		this.bird.display();
-		this.popMatrix();
 		// ---- END Primitive drawing section
 	}
 }
