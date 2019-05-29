@@ -28,12 +28,15 @@ class MyTerrain extends CGFobject {
         this.terrainMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.terrainMaterial.setShininess(120);
 
+        this.terrainMaterial.setTexture(this.colortexture);
+
         this.shader = new CGFshader(scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
     }
 
     display() {
 
         this.scene.terrainMaterial.apply();
+        this.scene.setActiveShader(this.shader);
         this.plane.display();
     }
 }
