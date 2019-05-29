@@ -30,7 +30,8 @@ class MyScene extends CGFscene {
 		this.axis = new CGFaxis(this);
 		this.terrain = new MyTerrain(this);
 		this.house = new MyHouse(this);
-        this.bird = new MyBird(this,0,0,0,0,0);
+		this.bird = new MyBird(this,0,0,0,0,0);
+		this.nest = new MyNest(this);
         
 		this.oldTime = 0;
 		
@@ -122,7 +123,11 @@ class MyScene extends CGFscene {
 		this.setDefaultAppearance();
 
 		// ---- BEGIN Primitive drawing section
+
 		this.pushMatrix();
+		this.nest.display();
+		this.popMatrix();
+		/*this.pushMatrix();
 		this.rotate(-0.5 * Math.PI, 1, 0, 0);
 		this.scale(60, 60, 1);
 		this.terrain.display();
@@ -133,7 +138,7 @@ class MyScene extends CGFscene {
 		this.translate(0,3.5,0);
 		this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 		this.bird.display();
-		this.popMatrix();
+		this.popMatrix();*/
 		// ---- END Primitive drawing section
 	}
 }

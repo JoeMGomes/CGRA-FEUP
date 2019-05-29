@@ -36,7 +36,6 @@ class MyTerrain extends CGFobject {
 
         this.heightTexture.bind(1);
         this.altimetry.bind(2);
-
     }
 
     display() {

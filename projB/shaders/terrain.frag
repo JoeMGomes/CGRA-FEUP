@@ -16,5 +16,5 @@ void main() {
 
 	vec4 altimetry = texture2D(uSampler3, vec2(1.0-filter.r,1.0-filter.r));
 
-	gl_FragColor = color * 0.5 + altimetry*0.5;
+	gl_FragColor = color * 0.6 + altimetry*0.4;
 }
