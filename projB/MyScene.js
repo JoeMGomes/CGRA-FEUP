@@ -35,7 +35,27 @@ class MyScene extends CGFscene {
         this.oldTime = 0;
         
 
-		//Objects connected to MyInterface
+		 //Objects connected to MyInterface
+		 this.axiom = "X";
+		 this.ruleF = "FF";
+		 this.ruleX = "F[-X][X]F[-X]+FX";
+		 this.angle = 25.0;
+		 this.iterations = 3;
+		 this.scaleFactor = 0.5;
+		 this.lightning = new MyLightning(this);
+ 
+		 this.doGenerate = function () {
+			 this.lSPlant.generate(
+				 this.axiom,
+				 {
+					 "F": [ this.ruleF ],
+					 "X": [ this.ruleX ]
+				 },
+				 this.angle,
+				 this.iterations,
+				 this.scaleFactor
+			 );
+		 }
 	}
 	initLights() {
 		this.lights[0].setPosition(15, 2, 5, 1);
@@ -135,6 +155,8 @@ class MyScene extends CGFscene {
 		this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 		this.bird.display();
 		this.popMatrix();
+
+		this.lightning.display();
 		// ---- END Primitive drawing section
 	}
 
