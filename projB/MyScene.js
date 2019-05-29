@@ -99,7 +99,7 @@ class MyScene extends CGFscene {
 		this.oldTime = t;
 		this.bird.move(d); //TODO
 		
-		this.bird.y = 0.25*Math.sin(2*Math.PI* t/1000*this.speedFactor);
+		this.bird.y = 0.25*Math.sin(2*Math.PI* t/1000*this.speedFactor + Math.PI);
         this.bird.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*this.speedFactor);
 		}
 	}
