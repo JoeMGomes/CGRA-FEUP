@@ -127,7 +127,7 @@ class MyScene extends CGFscene {
 		this.pushMatrix();
 		this.nest.display();
 		this.popMatrix();
-		/*this.pushMatrix();
+		this.pushMatrix();
 		this.rotate(-0.5 * Math.PI, 1, 0, 0);
 		this.scale(60, 60, 1);
 		this.terrain.display();
@@ -138,7 +138,7 @@ class MyScene extends CGFscene {
 		this.translate(0,3.5,0);
 		this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 		this.bird.display();
-		this.popMatrix();*/
+		this.popMatrix();
 		// ---- END Primitive drawing section
 	}
 }

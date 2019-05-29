@@ -19,7 +19,7 @@ class MyTerrain extends CGFobject {
     initShader(scene) {
 
         this.colortexture = new CGFtexture(scene, "images/terrain.jpg");
-        this.heightTexture = new CGFtexture(scene, "images/heightmap.jpg");
+        this.heightTexture = new CGFtexture(scene, "images/heightmapTest.png");
         this.altimetry = new CGFtexture(scene, "images/altimetry.png");
 
         this.terrainMaterial = new CGFappearance(scene);
