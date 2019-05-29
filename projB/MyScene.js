@@ -98,6 +98,9 @@ class MyScene extends CGFscene {
        	var  d = this.bird.speed * delta;
 		this.oldTime = t;
 		this.bird.move(d); //TODO
+		
+		this.bird.y = 0.25*Math.sin(2*Math.PI* t/1000*this.speedFactor);
+        this.bird.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*this.speedFactor);
 		}
 	}
 
@@ -127,6 +130,7 @@ class MyScene extends CGFscene {
 
 		//this.house.display();
 		this.pushMatrix()
+		this.translate(0,3.5,0);
 		this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 		this.bird.display();
 		this.popMatrix();
