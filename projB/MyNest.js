@@ -5,11 +5,14 @@
 */
 
 class MyNest extends CGFobject {
-    constructor(scene) {
+    constructor(scene,x,y,z) {
         super(scene);
         //this.degreeToRad = Math.PI / 180;
         this.initBuffers(scene);
         this.initTextures(scene);
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
     initBuffers(scene) {
         scene.stick = new MyCylinder(scene,5);
@@ -30,6 +33,10 @@ class MyNest extends CGFobject {
         let step = (Math.PI*2)/ramos;
 
         this.stickMaterial.apply()
+
+        this.scene.pushMatrix()
+        this.scene.translate(this.x,this.y,this.z);
+
         //DESENHAR Um setor
         for(var i = 0.0; i < ramos; i++) {
             this.scene.pushMatrix()
@@ -58,6 +65,6 @@ class MyNest extends CGFobject {
             this.scene.popMatrix();//Pop do loop
             ang += step
         }
-
+        this.scene.popMatrix();
     }
 }

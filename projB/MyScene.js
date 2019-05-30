@@ -31,8 +31,11 @@ class MyScene extends CGFscene {
         this.terrain = new MyTerrain(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 0, 0, 0, 0);
-        this.nest = new MyNest(this);
-        this.treeBranch = new MyTreeBranch(this);
+        this.nest = new MyNest(this,-8, 1.9, -3);
+        this.treeBranches = [
+                                new MyTreeBranch(this, 0,2,0),
+                                new MyTreeBranch(this,3,2,0)
+                            ];
         this.lightning = new MyLightning(this);
         this.lSPlant = new MyLSPlant(this);
 
@@ -48,7 +51,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(1, 45, 1), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -90,7 +93,7 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed('KeyP')) {
             text += ' P ';
             keysPressed = true;
-
+            this.bird.catching = true;
             console.log("goin down");
         }
         if (this.gui.isKeyPressed('KeyL')) {
@@ -101,6 +104,32 @@ class MyScene extends CGFscene {
         if (keysPressed) console.log(text);
     }
 
+    checkBranches() {
+
+        for(let i = 0; i< this.treeBranches.length; i++) {
+
+            let xCond =(this.treeBranches[i].x - this.bird.x )< 1;
+            let zCond =(this.treeBranches[i].z - this.bird.z) < 1;
+
+            console.log(this.treeBranches[i].x - this.bird.x);
+            console.log(this.treeBranches[i].z - this.bird.z);
+
+            if(xCond && zCond) {
+                this.treeBranches.splice(i,1);
+                this.bird.caught = true;
+                console.log("Pauuuu");
+            }
+        }
+
+    }
+    checkNest(){
+        let xCond =(this.nest.x - this.bird.x )< 1;
+        let zCond =(this.nest.z - this.bird.z) < 1;
+        if(xCond && zCond && this.bird.caught) {
+            this.bird.caught = false;
+            console.log("Soltouuuuu");
+        }
+    }
     update(t) {
         this.checkKeys();
         if (this.oldTime == 0) {
@@ -115,6 +144,11 @@ class MyScene extends CGFscene {
                 this.bird.fly(t, this.speedFactor);
             else {
                 this.bird.catch(t, this.speedFactor);
+
+                if(t > this.bird.timeMarker+900 && t < this.bird.timeMarker+1100) {
+                    this.checkBranches();
+                    this.checkNest();
+                }
             }
 
             this.lightning.updating(this.oldTime/1000.0);
@@ -141,7 +175,9 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         //Branch
         this.pushMatrix();
-        this.treeBranch.display();
+        for(let i = 0; i< this.treeBranches.length; i++) {
+            this.treeBranches[i].display();
+        }
         this.popMatrix();
 
         //NEST

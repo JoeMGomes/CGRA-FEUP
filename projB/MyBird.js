@@ -15,18 +15,21 @@ class MyBird extends CGFobject {
         this.speed = speed;
         this.wingAngle = 0;
         this.catching = false;
+        this.flyUp = false;
+        this.flyDown = true;
         this.caught = false;
-        this.startTime = -1;
-	}
-	initBuffers(scene) {
-		scene.cylinder = new MyCylinder(scene,5);
+        this.timeMarker = -1;
+    }
+    initBuffers(scene) {
+        scene.cylinder = new MyCylinder(scene,5);
         scene.plane = new MyQuad (scene);
         scene.cone = new MyCone (scene, 5,0.2);
         scene.plane = new MyQuad (scene); //asa
         scene.cone = new MyCone (scene, 5,0.2); //lados do corpo e cabeça
         scene.beak = new MyCone (scene, 5, 0.5); //bico
-        scene.eye = new MyUnitCubeQuad (scene); //eyes 
+        scene.eye = new MyUnitCubeQuad (scene); //eyes
         scene.triangle = new MyTriangle (scene); //asas e cauda
+        scene.birdStick = new MyTreeBranch(scene,this.x + 1,this.y+1,this.z);
     }
 
     display() {
@@ -216,9 +219,9 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
         this.scene.popMatrix(); //MOVIMENTO CAUDA
 
-    
+
         this.scene.popMatrix()//MOVIMENTO GERAL
-	}
+    }
 
 
     move(d) {
@@ -275,20 +278,38 @@ class MyBird extends CGFobject {
         this.orientation = 0;
         this.catching = false;
         this.caught = false;
+        this.flyDown = true;
+        this.flyUp = false;
     }
 
-    fly(t, factor){
-        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) + 2 ;
+    fly(t, factor) {
+        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) + 4 ;
         this.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*factor);
     }
 
-    catch(t, factor){
-        if(this.startTime == 0){
-            this.startTime = t;
+    catch(t, factor) {
+        if(this.timeMarker == -1) {
+            this.timeMarker = t;
         }
 
-        while(t < t+1000){
-            
+        if(this.flyDown) {
+            if(t < this.timeMarker+1000) {
+                this.y-= .3* factor;
+            } else if(t >= this.timeMarker+1000) {
+                this.flyDown = false;
+                this.flyUp = true;
+                this.timeMarker = t;
+            }
+        }else if(this.flyUp) {
+            if(t < this.timeMarker+1000) {
+                this.y += .3* factor;
+                this.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*factor);
+            } else if(t >= this.timeMarker+1000) {
+                this.catching = false;
+                this.flyUp = false;
+                this.flyDown = true;
+                this.timeMarker = -1;
+            }
         }
     }
 }
