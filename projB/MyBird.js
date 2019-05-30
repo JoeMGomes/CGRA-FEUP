@@ -14,6 +14,9 @@ class MyBird extends CGFobject {
         this.z = z;
         this.speed = speed;
         this.wingAngle = 0;
+        this.catching = false;
+        this.caught = false;
+        this.startTime = -1;
 	}
 	initBuffers(scene) {
 		scene.cylinder = new MyCylinder(scene,5);
@@ -270,11 +273,22 @@ class MyBird extends CGFobject {
         this.z = 0;
         this.speed = 0;
         this.orientation = 0;
+        this.catching = false;
+        this.caught = false;
     }
 
     fly(t, factor){
-        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) ;
+        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) + 2 ;
         this.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*factor);
+    }
 
+    catch(t, factor){
+        if(this.startTime == 0){
+            this.startTime = t;
+        }
+
+        while(t < t+1000){
+            
+        }
     }
 }
