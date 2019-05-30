@@ -33,12 +33,12 @@ class MyTerrain extends CGFobject {
         this.shader = new CGFshader(scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
         this.shader.setUniformsValues({ uSampler2: 1 });
         this.shader.setUniformsValues({ uSampler3: 2 });
-
-        this.heightTexture.bind(1);
-        this.altimetry.bind(2);
     }
 
     display() {
+
+        this.heightTexture.bind(1);
+        this.altimetry.bind(2);
 
         this.terrainMaterial.apply();
         this.scene.setActiveShader(this.shader);
