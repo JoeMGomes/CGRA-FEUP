@@ -24,7 +24,7 @@ class MyLightning extends MyLSystem {
         this.scale = Math.pow(0.5, this.iterations - 1);
         this.productions = {
             "F": ["FF"],
-            "X": ["F[-X][X]F[-X]+FX", "F[-X][x]+X", "F[+X]-X", "F[-X][X]F[-X]+X", "F[-X][x]+X", "F[+X]-X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X"]
+            "X": ["F[-X][X]F[-X]+FX", "F[-X][x]+X", "F[+X]-X+FX", "F[-X][X]F[-X]+FX", "F[-X][x]+FX", "F[+X]-X+FX"]
         };
     }
 
