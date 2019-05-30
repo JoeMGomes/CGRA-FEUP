@@ -25,17 +25,20 @@ class MyScene extends CGFscene {
 		//Interface
 		this.speedFactor = 1;
 		this.scaleFactor = 1;
-		
+
 		//Initialize scene objects
 		this.axis = new CGFaxis(this);
 		this.terrain = new MyTerrain(this);
 		this.house = new MyHouse(this);
-		this.bird = new MyBird(this,0,0,0,0,0);
+		this.bird = new MyBird(this, 0, 0, 0, 0, 0);
 		this.nest = new MyNest(this);
 		this.treeBranch = new MyTreeBranch(this);
-        
+		this.lightning = new MyLightning(this);
+		this.lSPlant = new MyLSPlant(this);
+
+		this.lSPlant.doGenerate(); //one for each tree
 		this.oldTime = 0;
-		
+
 		//Objects connected to MyInterface
 	}
 	initLights() {
@@ -45,7 +48,7 @@ class MyScene extends CGFscene {
 		this.lights[0].update();
 	}
 	initCameras() {
-		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
+		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(13.21, 5.38, 75.9), vec3.fromValues(6.024, 5.21, 31.2));
 	}
 	setDefaultAppearance() {
 		this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -62,47 +65,53 @@ class MyScene extends CGFscene {
 			text += ' W ';
 			keysPressed = true;
 			this.bird.accelerate(this.speedFactor, true);
-			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}else if (this.gui.isKeyPressed('KeyS')) {
+			console.log(this.bird.x, this.bird.z, this.bird.speed);
+		} else if (this.gui.isKeyPressed('KeyS')) {
 			text += ' S ';
 			keysPressed = true;
-			this.bird.accelerate(this.speedFactor,false);
-			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}else if (this.gui.isKeyPressed('KeyA')) {
+			this.bird.accelerate(this.speedFactor, false);
+			console.log(this.bird.x, this.bird.z, this.bird.speed);
+		} else if (this.gui.isKeyPressed('KeyA')) {
 			text += ' A ';
 			keysPressed = true;
-			this.bird.rotate(this.speedFactor,true);
-			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}else if (this.gui.isKeyPressed('KeyD')) {
+			this.bird.rotate(this.speedFactor, true);
+			console.log(this.bird.x, this.bird.z, this.bird.speed);
+		} else if (this.gui.isKeyPressed('KeyD')) {
 			text += ' D ';
 			keysPressed = true;
-			this.bird.rotate(this.speedFactor,false);
-			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}else if (this.gui.isKeyPressed('KeyR')) {
+			this.bird.rotate(this.speedFactor, false);
+			console.log(this.bird.x, this.bird.z, this.bird.speed);
+		} else if (this.gui.isKeyPressed('KeyR')) {
 			text += ' R ';
 			keysPressed = true;
 			this.bird.resetValues();
-			console.log(this.bird.x,this.bird.z,this.bird.speed);
-		}else if (this.gui.isKeyPressed('KeyP')) {
+			console.log(this.bird.x, this.bird.z, this.bird.speed);
+		} else if (this.gui.isKeyPressed('KeyP')) {
 			text += ' P ';
 			keysPressed = true;
-			
+
 			console.log("goin down");
+		}else if (this.gui.isKeyPressed('KeyL')) {
+			text += ' L ';
+			keysPressed = true;
+			this.lightning.startAnimation(this.oldTime /1000.0);
 		}
-		if (keysPressed)console.log(text);
-    }
-   
+		if (keysPressed) console.log(text);
+	}
+
 	update(t) {
-        this.checkKeys();
-        if(this.oldTime == 0){
-			 this.oldTime = t;
-        }else{
-		var delta = (t - this.oldTime) / 1000.0;
-       	var  d = this.bird.speed * delta;
-		this.oldTime = t;
-		this.bird.move(d); 
-		
-		this.bird.fly(t, this.speedFactor);
+		this.checkKeys();
+		if (this.oldTime == 0) {
+			this.oldTime = t;
+		} else {
+			var delta = (t - this.oldTime) / 1000.0;
+			var d = this.bird.speed * delta;
+			this.oldTime = t;
+
+			this.bird.move(d);
+			this.bird.fly(t, this.speedFactor);
+
+			this.lightning.updating(this.oldTime/1000.0);
 		}
 	}
 
@@ -131,15 +140,15 @@ class MyScene extends CGFscene {
 
 		//NEST
 		this.pushMatrix();
-		this.translate(-11,2.1,-4);
-		this.scale(.5,.5,.5);
+		this.translate(-11, 2.1, -4);
+		this.scale(.5, .5, .5);
 		this.nest.display();
 		this.popMatrix();
 
 		//BIRD
 		this.pushMatrix()
-		this.translate(0,3.5,0);
-		this.scale(this.scaleFactor*0.5, this.scaleFactor*0.5, this.scaleFactor*0.5);
+		this.translate(0, 3.5, 0);
+		this.scale(this.scaleFactor * 0.5, this.scaleFactor * 0.5, this.scaleFactor * 0.5);
 		this.bird.display();
 		this.popMatrix();
 
@@ -148,6 +157,18 @@ class MyScene extends CGFscene {
 		this.rotate(-0.5 * Math.PI, 1, 0, 0);
 		this.scale(60, 60, 1);
 		this.terrain.display();
+		this.popMatrix();
+
+		this.pushMatrix();
+		this.translate(0, 15, 0);
+		this.rotate(- Math.PI, 1, 0, 0);
+		this.rotate(Math.PI, 0, 1, 0);
+		this.lightning.display();
+		this.popMatrix();
+
+		this.pushMatrix();
+		this.translate(4, 0, 0);
+		this.lSPlant.display();
 		this.popMatrix();
 
 		// ---- END Primitive drawing section
