@@ -31,7 +31,7 @@ class MyScene extends CGFscene {
         this.terrain = new MyTerrain(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 0, 0, 0, 0);
-        this.nest = new MyNest(this,-8, 1.9, -3);
+        this.nest = new MyNest(this,-23, 5, -6);
         this.treeBranches = [
                                 new MyTreeBranch(this, 0,2,0),
                                 new MyTreeBranch(this,3,2,0)
@@ -108,11 +108,10 @@ class MyScene extends CGFscene {
 
         for(let i = 0; i< this.treeBranches.length; i++) {
 
-            let xCond =(this.treeBranches[i].x - this.bird.x )< 1;
-            let zCond =(this.treeBranches[i].z - this.bird.z) < 1;
+            let xCond =Math.abs(this.treeBranches[i].x - this.bird.x )< 1;
+            let zCond =Math.abs(this.treeBranches[i].z - this.bird.z) < 1;
 
-            console.log(this.treeBranches[i].x - this.bird.x);
-            console.log(this.treeBranches[i].z - this.bird.z);
+    
 
             if(xCond && zCond) {
                 this.treeBranches.splice(i,1);
@@ -123,8 +122,9 @@ class MyScene extends CGFscene {
 
     }
     checkNest(){
-        let xCond =(this.nest.x - this.bird.x )< 1;
-        let zCond =(this.nest.z - this.bird.z) < 1;
+        let xCond =Math.abs(this.nest.x - this.bird.x )< 2;
+        let zCond =Math.abs(this.nest.z - this.bird.z) < 2;
+
         if(xCond && zCond && this.bird.caught) {
             this.bird.caught = false;
             console.log("Soltouuuuu");
@@ -146,8 +146,8 @@ class MyScene extends CGFscene {
                 this.bird.catch(t, this.speedFactor);
 
                 if(t > this.bird.timeMarker+900 && t < this.bird.timeMarker+1100) {
-                    this.checkBranches();
                     this.checkNest();
+                    this.checkBranches();
                 }
             }
 
@@ -182,7 +182,6 @@ class MyScene extends CGFscene {
 
         //NEST
         this.pushMatrix();
-        this.translate(-11, 2.1, -4);
         this.scale(.5, .5, .5);
         this.nest.display();
         this.popMatrix();

@@ -32,33 +32,33 @@ class MyNest extends CGFobject {
         let ang = 0;
         let step = (Math.PI*2)/ramos;
 
-        this.stickMaterial.apply()
+        this.stickMaterial.apply();
 
-        this.scene.pushMatrix()
+        this.scene.pushMatrix();
         this.scene.translate(this.x,this.y,this.z);
 
         //DESENHAR Um setor
         for(var i = 0.0; i < ramos; i++) {
-            this.scene.pushMatrix()
+            this.scene.pushMatrix();
             this.scene.rotate(ang,0,1,0);
 
-            this.scene.pushMatrix()
+            this.scene.pushMatrix();
             this.scene.rotate(-Math.PI/2, 0,0,1);
-            this.scene.scale(.1,2,.1)
+            this.scene.scale(.1,2,.1);
             this.scene.stick.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
             this.scene.translate(1.8,0,-0.4);
             this.scene.rotate(Math.PI/4,1,0,-1);
-            this.scene.scale(.1,1,.1)
+            this.scene.scale(.1,1,.1);
             this.scene.stick.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
             this.scene.translate(1.8,0,0.4);
             this.scene.rotate(-Math.PI/4,1,0,1);
-            this.scene.scale(.1,1,.1)
+            this.scene.scale(.1,1,.1);
             this.scene.stick.display();
             this.scene.popMatrix();
 
