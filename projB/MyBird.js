@@ -17,7 +17,7 @@ class MyBird extends CGFobject {
         this.catching = false;
         this.flyUp = false;
         this.flyDown = true;
-        this.caught = false;
+        this.caught = true;
         this.timeMarker = -1;
     }
     initBuffers(scene) {
@@ -29,11 +29,20 @@ class MyBird extends CGFobject {
         scene.beak = new MyCone (scene, 5, 0.5); //bico
         scene.eye = new MyUnitCubeQuad (scene); //eyes
         scene.triangle = new MyTriangle (scene); //asas e cauda
-        scene.birdStick = new MyTreeBranch(scene,this.x + 1,this.y+1,this.z);
+        scene.birdStick = new MyCylinder(scene,5);
+
+        this.branchMaterial = new CGFappearance(scene);
+        this.branchMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.branchMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.branchMaterial.setSpecular(1, 1, 1, 1);
+        this.branchMaterial.setShininess(15.0);
+        this.branchMaterial.setTexture(new CGFtexture(scene, 'images/column.jpg'));
     }
 
     display() {
         this.scene.pushMatrix();//MOVIMENTO
+
+    
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.orientation*this.scene.degreeToRad,0,1,0);
         this.scene.translate(-this.x, -this.y, -this.z);
@@ -96,6 +105,16 @@ class MyBird extends CGFobject {
         this.scene.beak.display();
         this.scene.popMatrix();
 
+        if(this.caught){
+            this.branchMaterial.apply();
+            this.scene.pushMatrix();
+            this.scene.rotate(Math.PI / 2,0,0,1);
+            this.scene.translate(.8,-0.5,1.7);
+            this.scene.scale(0.1, 1, 0.1);
+            this.scene.branch.display();
+            this.scene.popMatrix();
+        }
+
         //eyes
         this.scene.pushMatrix();
         this.scene.translate(-0.22,1.1,1.35);
@@ -141,7 +160,7 @@ class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.rotate(90*this.scene.degreeToRad, 0,1,0);
         this.scene.rotate(90*this.scene.degreeToRad, 1,0,0);
-        this.scene.triangle.display();
+       // this.scene.triangle.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -194,7 +213,6 @@ class MyBird extends CGFobject {
 
         this.scene.popMatrix();
         this.scene.popMatrix(); //MOVIMENTO ASA ESQUERDA
-
 
         this.scene.pushMatrix();
         this.scene.rotate(-this.wingAngle/5.0, 1,0,0);
@@ -283,7 +301,7 @@ class MyBird extends CGFobject {
     }
 
     fly(t, factor) {
-        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) + 4 ;
+        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) + 8;
         this.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*factor);
     }
 

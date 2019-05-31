@@ -51,7 +51,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(1, 45, 1), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -188,12 +188,11 @@ class MyScene extends CGFscene {
 
         //BIRD
         this.pushMatrix()
-        this.translate(0, 3.5, 0);
         this.scale(this.scaleFactor * 0.5, this.scaleFactor * 0.5, this.scaleFactor * 0.5);
         this.bird.display();
         this.popMatrix();
 
-        //TERRAIN
+       //TERRAIN
         this.pushMatrix();
         this.rotate(-0.5 * Math.PI, 1, 0, 0);
         this.scale(60, 60, 1);
@@ -211,7 +210,7 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(4, 0, 0);
         this.lSPlant.display();
-        this.popMatrix();
+        this.popMatrix();  
 
         // ---- END Primitive drawing section
     }
