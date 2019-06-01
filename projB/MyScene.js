@@ -115,6 +115,7 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed('KeyL')) {
             text += ' L ';
             keysPressed = true;
+            this.randomAngle = Math.random()*40-20;
             this.lightning.startAnimation(this.oldTime /1000.0);
         }
     }
@@ -235,7 +236,9 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         //LIGHTNING
+
         this.pushMatrix();
+        this.rotate(this.randomAngle*this.degreeToRad, 0,0,1);
         this.translate(0, 18, 0);
         this.scale(2,2,2);
         this.rotate(- Math.PI, 1, 0, 0);
