@@ -187,6 +187,7 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         //SkyBox
         this.pushMatrix();
+        //this.scale (0.68,0.68,0.68);
         this.map.display();
         this.popMatrix();
 

@@ -48,7 +48,7 @@ class MyCubeMap extends CGFobject {
 			
         ];
 
-        this.vertices = this.vertices1.map(x => x * 90);
+        this.vertices = this.vertices1.map(x => x * 60);
     
 		//Counter-clockwise reference of vertices
 		this.indices = [
