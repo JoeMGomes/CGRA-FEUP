@@ -19,7 +19,9 @@ class MyBranch extends CGFobject {
 		this.brown.setAmbient(0.6, 0.1, 0.1, 1);
 		this.brown.setDiffuse(0.647, 0.165, 0.165, 1);
 		this.brown.setSpecular(0.6, 0.1, 0.1, 1);
-		this.brown.setShininess(10.0);
+        this.brown.setShininess(10.0);
+        this.colortexture = new CGFtexture(scene, "images/column.jpg");
+        this.brown.setTexture(this.colortexture);
     }
     display(){
         this.brown.apply();

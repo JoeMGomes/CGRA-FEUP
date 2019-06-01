@@ -29,20 +29,32 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.terrain = new MyTerrain(this);
+        this.map = new MySkyBox(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 0, 0, 0, 0);
         this.nest = new MyNest(this,-23, 5, -6);
         this.treeBranches = [
-                                new MyTreeBranch(this, 0,2,0),
-                                new MyTreeBranch(this,3,2,0)
-                            ];
+                                new MyTreeBranch(this, -1, 3, 8),
+                                new MyTreeBranch(this,4,3.2,6),
+                                new MyTreeBranch(this,8,3,3),
+                                new MyTreeBranch(this,-8,3,-3.5)
+                        ];
+
+        this.plants = [
+            new MyLSPlant(this),
+            new MyLSPlant(this),
+            new MyLSPlant(this),
+            new MyLSPlant(this),
+            new MyLSPlant(this),
+            new MyLSPlant(this),
+            new MyLSPlant(this),
+            new MyLSPlant(this)
+        ];
+
+        this.generatePlants();
         this.lightning = new MyLightning(this);
-        this.lSPlant = new MyLSPlant(this);
 
-        this.lSPlant.doGenerate(); //one for each tree
         this.oldTime = 0;
-
-        //Objects connected to MyInterface
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -51,7 +63,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(16.68649673461914, 29.773422241210938, 62.07229232788086), vec3.fromValues(1.1595165729522705, 2.7738912105560303, -0.9989054799079895));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -59,7 +71,11 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-
+    generatePlants(){
+        for (let i=0; i < this.plants.length; i++){
+            this.plants[i].doGenerate(); //one for each tree
+        }
+    }
     checkKeys() {
         var text = 'Keys pressed: ';
         var keysPressed = false;
@@ -68,55 +84,45 @@ class MyScene extends CGFscene {
             text += ' W ';
             keysPressed = true;
             this.bird.accelerate(this.speedFactor, true);
-            console.log(this.bird.x, this.bird.z, this.bird.speed);
         } else if (this.gui.isKeyPressed('KeyS')) {
             text += ' S ';
             keysPressed = true;
             this.bird.accelerate(this.speedFactor, false);
-            console.log(this.bird.x, this.bird.z, this.bird.speed);
         } else if (this.gui.isKeyPressed('KeyA')) {
             text += ' A ';
             keysPressed = true;
             this.bird.rotate(this.speedFactor, true);
-            console.log(this.bird.x, this.bird.z, this.bird.speed);
         } else if (this.gui.isKeyPressed('KeyD')) {
             text += ' D ';
             keysPressed = true;
             this.bird.rotate(this.speedFactor, false);
-            console.log(this.bird.x, this.bird.z, this.bird.speed);
         } else if (this.gui.isKeyPressed('KeyR')) {
             text += ' R ';
             keysPressed = true;
             this.bird.resetValues();
-            console.log(this.bird.x, this.bird.z, this.bird.speed);
         }
         if (this.gui.isKeyPressed('KeyP')) {
             text += ' P ';
             keysPressed = true;
             this.bird.catching = true;
-            console.log("goin down");
         }
         if (this.gui.isKeyPressed('KeyL')) {
             text += ' L ';
             keysPressed = true;
             this.lightning.startAnimation(this.oldTime /1000.0);
         }
-        if (keysPressed) console.log(text);
     }
 
     checkBranches() {
 
         for(let i = 0; i< this.treeBranches.length; i++) {
 
-            let xCond =Math.abs(this.treeBranches[i].x - this.bird.x )< 1;
-            let zCond =Math.abs(this.treeBranches[i].z - this.bird.z) < 1;
-
-    
+            let xCond =Math.abs(this.treeBranches[i].x - this.bird.x )< 1.5;
+            let zCond =Math.abs(this.treeBranches[i].z - this.bird.z) < 1.5;
 
             if(xCond && zCond) {
                 this.treeBranches.splice(i,1);
                 this.bird.caught = true;
-                console.log("Pauuuu");
             }
         }
 
@@ -127,7 +133,6 @@ class MyScene extends CGFscene {
 
         if(xCond && zCond && this.bird.caught) {
             this.bird.caught = false;
-            console.log("Soltouuuuu");
         }
     }
     update(t) {
@@ -173,6 +178,19 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
+        //SkyBox
+        this.pushMatrix();
+        this.map.display();
+        this.popMatrix();
+
+        //House
+        this.pushMatrix();
+        this.translate(-8.5,2.5,-8);
+        this.scale(.9, .9, .9);
+        this.rotate(25*this.degreeToRad,0,1,0);
+        this.house.display();
+        this.popMatrix();
+
         //Branch
         this.pushMatrix();
         for(let i = 0; i< this.treeBranches.length; i++) {
@@ -187,7 +205,8 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         //BIRD
-        this.pushMatrix()
+        this.pushMatrix();
+        this.translate(-1, 0, -2);
         this.scale(this.scaleFactor * 0.5, this.scaleFactor * 0.5, this.scaleFactor * 0.5);
         this.bird.display();
         this.popMatrix();
@@ -199,6 +218,7 @@ class MyScene extends CGFscene {
         this.terrain.display();
         this.popMatrix();
 
+        //LIGHTNING
         this.pushMatrix();
         this.translate(0, 18, 0);
         this.scale(2,2,2);
@@ -207,9 +227,45 @@ class MyScene extends CGFscene {
         this.lightning.display();
         this.popMatrix();
 
+        //PLANTS
         this.pushMatrix();
-        this.translate(4, 0, 0);
-        this.lSPlant.display();
+        this.translate(-4,2.5,-9);
+        this.plants[0].display();
+        this.popMatrix();  
+
+        this.pushMatrix();
+        this.translate(-1,2.5,-13);
+        this.plants[1].display();
+        this.popMatrix();  
+
+        this.pushMatrix();
+        this.translate(-5,2.5,-15);
+        this.plants[2].display();
+        this.popMatrix();  
+
+        this.pushMatrix();
+        this.translate(4, 2, 4);
+        this.plants[3].display();
+        this.popMatrix();  
+
+        this.pushMatrix();
+        this.translate(6, 2, 6);
+        this.plants[4].display();
+        this.popMatrix();  
+
+        this.pushMatrix();
+        this.translate(-2, 2, 4);
+        this.plants[5].display();
+        this.popMatrix();  
+
+        this.pushMatrix();
+        this.translate(-2, 2, 7);
+        this.plants[6].display();
+        this.popMatrix();  
+
+        this.pushMatrix();
+        this.translate(1, 2, 5);
+        this.plants[7].display();
         this.popMatrix();  
 
         // ---- END Primitive drawing section

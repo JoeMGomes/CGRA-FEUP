@@ -17,7 +17,7 @@ class MyBird extends CGFobject {
         this.catching = false;
         this.flyUp = false;
         this.flyDown = true;
-        this.caught = true;
+        this.caught = false;
         this.timeMarker = -1;
     }
     initBuffers(scene) {
@@ -37,6 +37,26 @@ class MyBird extends CGFobject {
         this.branchMaterial.setSpecular(1, 1, 1, 1);
         this.branchMaterial.setShininess(15.0);
         this.branchMaterial.setTexture(new CGFtexture(scene, 'images/column.jpg'));
+
+        this.featherMaterial = new CGFappearance(scene);
+        this.featherMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.featherMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.featherMaterial.setSpecular(1, 1, 1, 1);
+        this.featherMaterial.setShininess(15.0);
+        this.featherMaterial.setTexture(new CGFtexture(scene, 'images/feather.jpg'));
+
+        this.beakMaterial = new CGFappearance(scene);
+        this.beakMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.beakMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.beakMaterial.setSpecular(1, 1, 1, 1);
+        this.beakMaterial.setShininess(15.0);
+        this.beakMaterial.setTexture(new CGFtexture(scene, 'images/beak.png'));
+
+        this.eye = new CGFappearance(scene);
+        this.eye.setAmbient(0.1, 0.1, 0.1, 1);
+        this.eye.setDiffuse(0.2, 0.2, 0.2, 1);
+        this.eye.setSpecular(0.2, 0.2, 0.2, 1);
+        this.eye.setShininess(15.0);
     }
 
     display() {
@@ -51,6 +71,8 @@ class MyBird extends CGFobject {
 
         //para começar com orientação 0º
         this.scene.rotate(90*this.scene.degreeToRad, 0,1,0);
+       
+       this.featherMaterial.apply();
         //corpo
         this.scene.pushMatrix();
         this.scene.translate (-0.5,0,0);
@@ -95,6 +117,8 @@ class MyBird extends CGFobject {
         this.scene.cone.display();
         this.scene.popMatrix();
 
+        this.beakMaterial.apply();
+
         //bico
         this.scene.pushMatrix();
         this.scene.translate(-0.01,0.8,1.34);
@@ -116,6 +140,7 @@ class MyBird extends CGFobject {
         }
 
         //eyes
+        this.eye.apply();
         this.scene.pushMatrix();
         this.scene.translate(-0.22,1.1,1.35);
         this.scene.scale(0.2,0.2,0.2);
@@ -130,6 +155,7 @@ class MyBird extends CGFobject {
         this.scene.eye.display();
         this.scene.popMatrix();
 
+        this.featherMaterial.apply();
         this.scene.pushMatrix();
         this.scene.rotate(this.wingAngle/2.0, 0,0,1);
         //asa direita
@@ -160,7 +186,7 @@ class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.rotate(90*this.scene.degreeToRad, 0,1,0);
         this.scene.rotate(90*this.scene.degreeToRad, 1,0,0);
-       // this.scene.triangle.display();
+        this.scene.triangle.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -281,10 +307,10 @@ class MyBird extends CGFobject {
         } else {
             this.speed *= 1/(1+factor);
         }
-        if(this.speed <= 0) {
+        if(this.speed < 0) {
             this.speed = 0;
-        } else if(this.speed > 9) {
-            this.speed = 9;
+        } else if(this.speed > 15) {
+            this.speed = 15;
         }
     }
 
@@ -301,7 +327,7 @@ class MyBird extends CGFobject {
     }
 
     fly(t, factor) {
-        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) + 8;
+        this.y = 0.25*Math.sin(2*Math.PI* t/1000*factor + Math.PI) + 9;
         this.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*factor);
     }
 
@@ -312,7 +338,7 @@ class MyBird extends CGFobject {
 
         if(this.flyDown) {
             if(t < this.timeMarker+1000) {
-                this.y-= .3* factor;
+                this.y-= .15;
             } else if(t >= this.timeMarker+1000) {
                 this.flyDown = false;
                 this.flyUp = true;
@@ -320,7 +346,7 @@ class MyBird extends CGFobject {
             }
         }else if(this.flyUp) {
             if(t < this.timeMarker+1000) {
-                this.y += .3* factor;
+                this.y += .15;
                 this.wingAngle = Math.PI/4* Math.sin(2*Math.PI*t/1000*factor);
             } else if(t >= this.timeMarker+1000) {
                 this.catching = false;

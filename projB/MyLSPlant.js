@@ -19,7 +19,7 @@ class MyLSPlant extends MyLSystem{
 		this.axiomp = "X";
         this.anglep = 30.0;
         this.iterationsp = 4;
-        this.scene.scaleFactor2 = 0.5;
+        this.scene.scaleFactor2 = 0.53;
     }
 
     doGenerate() {
@@ -28,7 +28,7 @@ class MyLSPlant extends MyLSystem{
             this.axiomp,
             {
                 "F": [ "FF"],
-                "X": [ "F[-X][X]F[-X]+X", "F[-X][x]+X", "F[+X]-X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X"]
+                "X": [ "F[-X][X]F[-X]+X", "F[-X][x]+X[&X]^X", "F[+X]-X[&X]^X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[\X]\X", "F[^X][X]F[&X]^X", "F[^X]&X[&X]^X", "F[&X]^X[&X]^X"]
             },
             this.anglep,
             this.iterationsp,

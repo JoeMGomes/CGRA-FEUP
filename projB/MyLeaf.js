@@ -12,7 +12,7 @@ class MyLeaf extends CGFobject {
         this.initMaterials(scene);
     }
     initBuffers(scene){
-        scene.leaf = new MyTriangle(scene); //MyCone /outro??
+        scene.leaf = new MyTriangle(scene);
     }
     initMaterials(scene){
         this.green = new CGFappearance(scene);
@@ -25,6 +25,12 @@ class MyLeaf extends CGFobject {
         this.green.apply();
         this.scene.pushMatrix();
         this.scene.rotate(-3*Math.PI/4,0, 0, 1);
+        this.scene.leaf.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.rotate(-3*Math.PI/4,0, 0, 1);
+        this.scene.rotate(Math.PI, 0,1,0);
         this.scene.leaf.display();
         this.scene.popMatrix();
     }
