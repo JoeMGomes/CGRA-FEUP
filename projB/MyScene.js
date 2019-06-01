@@ -25,6 +25,12 @@ class MyScene extends CGFscene {
         //Interface
         this.speedFactor = 1;
         this.scaleFactor = 1;
+        this.displayAxis = false;
+        this.displayHouse = true;
+        this.displayBird = true;
+        this.displayTrees = true;
+        this.displayNest = true;
+        this.displayBranches = true;
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -172,7 +178,8 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        if (this.displayAxis)
+            this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
@@ -183,33 +190,41 @@ class MyScene extends CGFscene {
         this.map.display();
         this.popMatrix();
 
-        //House
-        this.pushMatrix();
-        this.translate(-8.5,2.5,-8);
-        this.scale(.9, .9, .9);
-        this.rotate(25*this.degreeToRad,0,1,0);
-        this.house.display();
-        this.popMatrix();
-
-        //Branch
-        this.pushMatrix();
-        for(let i = 0; i< this.treeBranches.length; i++) {
-            this.treeBranches[i].display();
+        //HOUSE
+        if (this.displayHouse){
+            this.pushMatrix();
+            this.translate(-8.5,2.5,-8);
+            this.scale(.9, .9, .9);
+            this.rotate(25*this.degreeToRad,0,1,0);
+            this.house.display();
+            this.popMatrix();
         }
-        this.popMatrix();
+
+        //BRANCH
+        if(this.displayBranches){
+            this.pushMatrix();
+            for(let i = 0; i< this.treeBranches.length; i++) {
+                this.treeBranches[i].display();
+            }
+            this.popMatrix();
+        }
 
         //NEST
-        this.pushMatrix();
-        this.scale(.5, .5, .5);
-        this.nest.display();
-        this.popMatrix();
+        if (this.displayNest){
+            this.pushMatrix();
+            this.scale(.5, .5, .5);
+            this.nest.display();
+            this.popMatrix();
+        }
 
         //BIRD
-        this.pushMatrix();
-        this.translate(-1, 0, -2);
-        this.scale(this.scaleFactor * 0.5, this.scaleFactor * 0.5, this.scaleFactor * 0.5);
-        this.bird.display();
-        this.popMatrix();
+        if (this.displayBird){
+            this.pushMatrix();
+            this.translate(-1, 0, -2);
+            this.scale(this.scaleFactor * 0.5, this.scaleFactor * 0.5, this.scaleFactor * 0.5);
+            this.bird.display();
+            this.popMatrix();
+        }
 
        //TERRAIN
         this.pushMatrix();
@@ -228,45 +243,47 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         //PLANTS
-        this.pushMatrix();
-        this.translate(-4,2.5,-9);
-        this.plants[0].display();
-        this.popMatrix();  
+        if (this.displayTrees){
+            this.pushMatrix();
+            this.translate(-4,2.5,-9);
+            this.plants[0].display();
+            this.popMatrix();  
 
-        this.pushMatrix();
-        this.translate(-1,2.5,-13);
-        this.plants[1].display();
-        this.popMatrix();  
+            this.pushMatrix();
+            this.translate(-1,2.5,-13);
+            this.plants[1].display();
+            this.popMatrix();  
 
-        this.pushMatrix();
-        this.translate(-5,2.5,-15);
-        this.plants[2].display();
-        this.popMatrix();  
+            this.pushMatrix();
+            this.translate(-5,2.5,-15);
+            this.plants[2].display();
+            this.popMatrix();  
 
-        this.pushMatrix();
-        this.translate(4, 2, 4);
-        this.plants[3].display();
-        this.popMatrix();  
+            this.pushMatrix();
+            this.translate(4, 2, 4);
+            this.plants[3].display();
+            this.popMatrix();  
 
-        this.pushMatrix();
-        this.translate(6, 2, 6);
-        this.plants[4].display();
-        this.popMatrix();  
+            this.pushMatrix();
+            this.translate(6, 2, 6);
+            this.plants[4].display();
+            this.popMatrix();  
 
-        this.pushMatrix();
-        this.translate(-2, 2, 4);
-        this.plants[5].display();
-        this.popMatrix();  
+            this.pushMatrix();
+            this.translate(-2, 2, 4);
+            this.plants[5].display();
+            this.popMatrix();  
 
-        this.pushMatrix();
-        this.translate(-2, 2, 7);
-        this.plants[6].display();
-        this.popMatrix();  
+            this.pushMatrix();
+            this.translate(-2, 2, 7);
+            this.plants[6].display();
+            this.popMatrix();  
 
-        this.pushMatrix();
-        this.translate(1, 2, 5);
-        this.plants[7].display();
-        this.popMatrix();  
+            this.pushMatrix();
+            this.translate(1, 2, 5);
+            this.plants[7].display();
+            this.popMatrix();  
+        }
 
         // ---- END Primitive drawing section
     }

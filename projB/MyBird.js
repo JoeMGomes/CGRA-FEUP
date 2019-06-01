@@ -307,6 +307,7 @@ class MyBird extends CGFobject {
         } else {
             this.speed *= 1/(1+factor);
         }
+
         if(this.speed < 0) {
             this.speed = 0;
         } else if(this.speed > 15) {
