@@ -20,14 +20,14 @@ class MyQuadLight extends CGFobject {
 	display(){
 		this.lightning.apply();
 		this.scene.pushMatrix();
-		this.scene.translate(0,0.6,0);
+		this.scene.translate(0,0.5,0);
 		this.scene.scale(0.15,1.15,1);
 		this.scene.quadl.display();
 		this.scene.popMatrix();
 
 
 		this.scene.pushMatrix();
-		this.scene.translate(0,0.6,0);
+		this.scene.translate(0,0.5,0);
 		this.scene.scale(0.15,1.15,1);
 		this.scene.rotate(Math.PI, 0,1,0);
 		this.scene.quadl.display();
