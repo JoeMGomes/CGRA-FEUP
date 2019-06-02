@@ -65,7 +65,7 @@ class MyBird extends CGFobject {
     
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.orientation*this.scene.degreeToRad,0,1,0);
-        this.scene.scale(.5,.5,.5);
+        this.scene.scale(.5*this.scene.scaleFactor,.5*this.scene.scaleFactor,.5*this.scene.scaleFactor);
         this.scene.translate(-this.x, -this.y, -this.z);
 
         this.scene.translate(this.x,this.y, this.z);;
