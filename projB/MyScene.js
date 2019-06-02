@@ -38,9 +38,9 @@ class MyScene extends CGFscene {
         this.map = new MySkyBox(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 0, 0, 0, 0);
-        this.nest = new MyNest(this,-23, 5, -6);
+        this.nest = new MyNest(this,-11, 2.5, -3);
         this.treeBranches = [
-                                new MyTreeBranch(this, -1, 3, 8),
+                                new MyTreeBranch(this, 0, 0,0),
                                 new MyTreeBranch(this,4,3.2,6),
                                 new MyTreeBranch(this,8,3,3),
                                 new MyTreeBranch(this,-8,3,-3.5)
@@ -130,6 +130,7 @@ class MyScene extends CGFscene {
             if(xCond && zCond) {
                 this.treeBranches.splice(i,1);
                 this.bird.caught = true;
+                return;
             }
         }
 
@@ -188,7 +189,6 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         //SkyBox
         this.pushMatrix();
-        //this.scale (0.68,0.68,0.68);
         this.map.display();
         this.popMatrix();
 
@@ -214,7 +214,7 @@ class MyScene extends CGFscene {
         //NEST
         if (this.displayNest){
             this.pushMatrix();
-            this.scale(.5, .5, .5);
+            //this.scale(.5, .5, .5);
             this.nest.display();
             this.popMatrix();
         }
@@ -222,8 +222,7 @@ class MyScene extends CGFscene {
         //BIRD
         if (this.displayBird){
             this.pushMatrix();
-            this.translate(-1, 0, -2);
-            this.scale(this.scaleFactor * 0.5, this.scaleFactor * 0.5, this.scaleFactor * 0.5);
+           // this.scale(this.scaleFactor * 0.5, this.scaleFactor * 0.5, this.scaleFactor * 0.5);
             this.bird.display();
             this.popMatrix();
         }

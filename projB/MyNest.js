@@ -35,6 +35,10 @@ class MyNest extends CGFobject {
         this.stickMaterial.apply();
 
         this.scene.pushMatrix();
+        this.scene.translate(this.x, this.y, this.z);
+        this.scene.scale(.5,.5,.5);
+        this.scene.translate(-this.x, -this.y, -this.z);
+
         this.scene.translate(this.x,this.y,this.z);
 
         //DESENHAR Um setor

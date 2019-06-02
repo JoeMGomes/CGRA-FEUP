@@ -11,11 +11,11 @@ class MyTreeBranch extends CGFobject {
         this.initBuffers(scene);
         this.initTextures(scene);
         this.x= x;
-        this.y=y;
+        this.y= y;
         this.z = z;
     }
     initBuffers(scene) {
-        scene.branch = new MyCylinder(scene,5);
+        this.branch = new MyCylinder(scene,5);
     }
     initTextures(scene) {
         this.branchMaterial = new CGFappearance(scene);
@@ -30,10 +30,10 @@ class MyTreeBranch extends CGFobject {
         this.branchMaterial.apply();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.x,-0.5+ this.y,this.z);
+        this.scene.translate(this.x,this.y,this.z);
         this.scene.rotate(-Math.PI/2,0,0,1);
         this.scene.scale(0.1, 1, 0.1);
-        this.scene.branch.display();
+        this.branch.display();
         this.scene.popMatrix();
     }
 }

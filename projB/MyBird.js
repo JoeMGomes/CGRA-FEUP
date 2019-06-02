@@ -29,7 +29,7 @@ class MyBird extends CGFobject {
         scene.beak = new MyCone (scene, 5, 0.5); //bico
         scene.eye = new MyUnitCubeQuad (scene); //eyes
         scene.triangle = new MyTriangle (scene); //asas e cauda
-        scene.birdStick = new MyCylinder(scene,5);
+        this.birdStick = new MyCylinder(scene,5);
 
         this.branchMaterial = new CGFappearance(scene);
         this.branchMaterial.setAmbient(0.1, 0.1, 0.1, 1);
@@ -65,6 +65,7 @@ class MyBird extends CGFobject {
     
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.orientation*this.scene.degreeToRad,0,1,0);
+        this.scene.scale(.5,.5,.5);
         this.scene.translate(-this.x, -this.y, -this.z);
 
         this.scene.translate(this.x,this.y, this.z);;
@@ -135,7 +136,7 @@ class MyBird extends CGFobject {
             this.scene.rotate(Math.PI / 2,0,0,1);
             this.scene.translate(.8,-0.5,1.7);
             this.scene.scale(0.1, 1, 0.1);
-            this.scene.branch.display();
+            this.birdStick.display();
             this.scene.popMatrix();
         }
 
